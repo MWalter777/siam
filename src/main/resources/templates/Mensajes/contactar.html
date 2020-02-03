@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="base/base_user:: head(~{::title})">
+	<title>Contactar</title>	
+</head>
+
+<body th:replace="base/base_user:: content(~{::contenido}, ~{::mis_scripts})">
+<contenido>
+          <div class="page-header">
+            <h3 class="page-title">
+              Seleccione un contacto
+            </h3>
+          </div>
+          <div th:each="usuario:${usuarios}">
+			<div class="row">
+				<div class="col-lg-1"></div>
+				<div class="col-lg-12">
+					<div class="card">
+						<div class="card-body">
+							<h4 th:text="${usuario.nombre}"></h4>
+							<p class="card-description" th:text="${usuario.direccion}"></p>
+							<a th:href="@{/mensaje/}+${usuario.id}" class="btn btn-success">Enviar mensaje</a>
+						</div>
+					</div>
+				</div>          
+			</div>
+			</br>
+          </div>
+          
+          <div class="row">
+          	<div class="col-lg-5"></div>
+            <div class="col-lg-4">
+                  <nav class="center">
+                    <ul class="pagination flat pagination-success">
+                      <li class="page-item"><a class="page-link" href="#"><i class="fa fa-chevron-left"></i></a></li>
+                      <div th:each="paginacion:${paginaciones}">
+	                      <li class="page-item"><a class="page-link" href="#" th:href="@{/index/last/}+${(paginacion)}+@{/}+${paginacion*10}" th:text="${paginacion}" th:if="${paginacion==1}"></a></li>
+	                      <li class="page-item"><a class="page-link" href="#" th:href="@{/index/last/}+${(paginacion - 1)*10 + 1}+@{/}+${(paginacion)*10}" th:text="${paginacion}" th:if="${paginacion>1}"></a></li>
+                      </div>
+                      <li class="page-item"><a class="page-link" href="#"><i class="fa fa-chevron-right"></i></a></li>
+                    </ul>
+                  </nav>
+
+            </div>
+          </div>
+</contenido>
+
+<mis_scripts></mis_scripts>
+
+</body>
+</html>

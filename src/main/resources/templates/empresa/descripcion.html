@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="base/base_user:: head(~{::title})">
+	<title>Index</title>	
+</head>
+
+<body th:replace="base/base_user:: content(~{::contenido}, ~{::mis_scripts})">
+<contenido>
+
+     <div class="row">
+     <div class="col-lg-2"></div>
+       <div class="col-lg-8">
+         <div class="card">
+           <div class="card-body">
+             <div class="row">
+               <div class="col-lg-4">
+                 <div class="border-bottom text-center pb-4">
+                   <img th:src="${direccion}" alt="imagen" class="img-lg rounded-circle mb-3"/>
+                   <p th:text="${empresa.descripcion}"></p>
+                 </div>
+                 <div class="border-bottom py-4">
+                   <p>Nuestros servicios</p>
+                   <div th:each="servicio:${servicios}">
+                     <label class="badge badge-outline-dark" th:text="${servicio.nombre_servicio}"></label>  
+                   </div>                                                               
+                 </div>
+                 <div class="py-4">
+                   <p class="clearfix">
+                     <span class="float-left">
+                       Estado
+                     </span>
+                     <span class="float-right text-muted">
+                       Activo
+                     </span>
+                   </p>
+                   <p class="clearfix">
+                     <span class="float-left">
+                       Telefono
+                     </span>
+                     <span class="float-right text-muted" th:text="${empresa.telefono}">
+                     </span>
+                   </p>
+                   <p class="clearfix">
+                     <span class="float-left">
+                       Correo
+                     </span>
+                     <span class="float-right text-muted">
+                     	<a href="#" th:text="${empresa.correo}"></a>
+                     </span>
+                   </p>
+                   <p class="clearfix">
+                     <span class="float-left">
+                       Fecha de creacion
+                     </span>
+                     <span class="float-right text-muted">
+                       <a href="#" th:text="${empresa.fecha_creacion}"></a>
+                     </span>
+                   </p>
+                   <p class="clearfix">
+                     <span class="float-left">
+                       NIT
+                     </span>
+                     <span class="float-right text-muted">
+                       <a href="#" th:text="${empresa.nit_empresa}"></a>
+                     </span>
+                   </p>
+                 </div>
+                 <button class="btn btn-primary btn-block">Preview</button>
+               </div>
+               <div class="col-lg-8 pl-lg-5">
+                 <div class="d-flex justify-content-between">
+                   <div>
+                     <h3 th:text="${empresa.razon_social}"></h3>
+                     <div class="d-flex align-items-center">
+                     </div>
+                   </div>
+                   <div>
+                     <a href="#" class="btn btn-outline-secondary">
+                       <i class="far fa-envelope"></i>
+                     </a>
+                     <a href="#" class="btn btn-primary">Request</a>
+                   </div>
+                 </div>
+                 <div class="mt-4 py-2 border-top border-bottom">
+                   
+                 </div>
+                 <div class="profile-feed" th:each="servicio:${servicios}">
+                   <div class="d-flex align-items-start profile-feed-item">
+                     <img th:src="${direccion}" alt="profile" class="img-sm rounded-circle"/>
+                     <div class="ml-4">
+                       <h6 th:text="${servicio.nombre_servicio}">
+                       </h6>
+                       <p th:text="${servicio.descripcion_servicio}">
+                       </p>
+                       <p class="small text-muted mt-2 mb-0">
+                         <span>
+                           <i class="fa fa-star mr-1"></i>4
+                         </span>
+                         <span class="ml-2">
+                           <i class="fa fa-mail-reply"></i>
+                         </span>
+                       </p>
+                     </div>
+                   </div>
+                 </div>
+               </div>
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
+
+</contenido>
+
+<mis_scripts>
+</mis_scripts>
+
+</body>
+</html>

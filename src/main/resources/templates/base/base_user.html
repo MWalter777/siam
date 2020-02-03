@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head th:fragment="head(title)">
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Usuario</title>
+
+
+  <link rel="stylesheet" href="#" th:href="@{/css/mini_chat/estilo.css}">
+  <link rel="stylesheet" href="#" th:href="@{/css/all.min.css}">
+  <link rel="stylesheet" href="#" th:href="@{/css/vendor.bundle.base.css}">
+  <link rel="stylesheet" href="#" th:href="@{/css/vendor.bundle.addons.css}">
+
+  <!-- inject:css -->
+  <link rel="stylesheet" href="#" th:href="@{/css/style.css}">
+
+  <link rel="shortcut icon" href="#" th:href="@{/images/favicon.png}" />
+  
+  <style type="text/css">
+  	.count {
+	    position: absolute;
+	    right: 25px;
+	    width: 20px;
+	    height: 20px;
+	    line-height: 20px;
+	    border-radius: 100%;
+	    background: #FF5E6D;
+	    top: 15px;
+	    font-size: .5625rem;
+	    color: #ffffff;
+	    text-align: center;
+	    font-weight: bold;
+	}
+	.count_message{
+	    position: absolute;
+	    right: 40px;
+	    width: 20px;
+	    height: 20px;
+	    line-height: 20px;
+	    border-radius: 100%;
+	    background: #FF5E6D;
+	    top: 3px;
+	    font-size: .5625rem;
+	    color: #ffffff;
+	    text-align: center;
+	    font-weight: bold;	
+	}
+  </style>
+  
+</head>
+
+<body class="horizontal-menu" th:fragment="content(contenido, mis_scripts)">
+  <div class="container-scroller">
+    <nav class="navbar horizontal-layout-navbar fixed-top navbar-expand-lg">
+      <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
+        <a class="navbar-brand brand-logo" th:href="@{/index}"><img src="#" th:src="@{/images/logo.svg}" alt="logo"/></a>
+        <a class="navbar-brand brand-logo-mini" th:href="@{/index}"><img th:src="@{/images/logo-mini.svg}" alt="logo"/></a>                    
+      </div>
+      <div class="navbar-menu-wrapper d-flex flex-grow">
+        <ul class="navbar-nav navbar-nav-left collapse navbar-collapse" id="horizontal-top-example">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle active" href="#" id="projects-dropdown" data-toggle="dropdown" aria-expanded="false">
+              Publicaciones
+            </a>
+            <div class="dropdown-menu navbar-dropdown" aria-labelledby="projects-dropdown">
+              <a class="dropdown-item" href="/">
+                <i class="mdi mdi-laptop-mac mr-2 text-primary"></i>
+                Todas las publicaciones
+              </a>
+              <div class="dropdown-divider"></div>                
+              <a class="dropdown-item" href="/publicaciones_empresa">
+                <i class="mdi mdi-cellphone-android mr-2 text-primary"></i>
+                publicaciones de la empresa
+              </a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="employees-dropdown" data-toggle="dropdown" aria-expanded="false">
+              Nuestra empresa
+            </a>
+            <div class="dropdown-menu navbar-dropdown" aria-labelledby="employees-dropdown">
+
+              <a class="dropdown-item" href="#" th:href="@{/empresa/descripcion}">
+                <i class="mdi mdi-scale-balance mr-2 text-primary"></i>
+                Descripcion de la empresa
+              </a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="actions-dropdown" data-toggle="dropdown" aria-expanded="false">
+              Contactenos &nbsp <i class="fas fa-envelope mx-0" th:if="${contador !=null}"><span class="count" id="contador1" th:text="${contador}"></span></i>
+            </a>
+            <div class="dropdown-menu navbar-dropdown" aria-labelledby="actions-dropdown">
+              <a class="dropdown-item" href="/mensajes">
+                <i class="mdi mdi-launch mr-2 text-primary"></i>
+                Mensajes &nbsp <i class="fas fa-envelope mx-0" th:if="${contador !=null}"><span class="count_message" id="contador2" th:text="${contador}"></span></i>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#" onclick="abrir()">
+                <i class="fa fa-user-multiple-outline mr-2 text-primary"></i>
+                Abrir mini chat
+              </a>
+            </div>
+
+          </li>
+          
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="actions-dropdown" data-toggle="dropdown" aria-expanded="false">
+              Solicitudes
+            </a>
+            <div class="dropdown-menu navbar-dropdown" aria-labelledby="actions-dropdown">
+              <a class="dropdown-item" href="/adopcion/mi_solicitud">
+                <i class="mdi mdi-launch mr-2 text-primary"></i>
+                Mis solicitudes
+              </a>
+            </div>
+          </li>
+
+          
+        </ul>
+        <ul class="navbar-nav navbar-nav-right">
+          <li class="nav-item dropdown" th:if="${mensajes!=null}">
+            <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+              <i class="fas fa-envelope mx-0"></i>
+              <span class="count">25</span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
+              <div class="dropdown-item">
+                <p class="mb-0 font-weight-normal float-left">You have 7 unread mails
+                </p>
+                <span class="badge badge-info badge-pill float-right">View all</span>
+              </div>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                    <img src="http://via.placeholder.com/36x36" alt="image" class="profile-pic">
+                </div>
+                <div class="preview-item-content flex-grow">
+                  <h6 class="preview-subject ellipsis font-weight-medium">David Grey
+                    <span class="float-right font-weight-light small-text">1 Minutes ago</span>
+                  </h6>
+                  <p class="font-weight-light small-text">
+                    The meeting is cancelled
+                  </p>
+                </div>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                    <img src="http://via.placeholder.com/36x36" alt="image" class="profile-pic">
+                </div>
+                <div class="preview-item-content flex-grow">
+                  <h6 class="preview-subject ellipsis font-weight-medium">Tim Cook
+                    <span class="float-right font-weight-light small-text">15 Minutes ago</span>
+                  </h6>
+                  <p class="font-weight-light small-text">
+                    New product launch
+                  </p>
+                </div>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                    <img src="http://via.placeholder.com/36x36" alt="image" class="profile-pic">
+                </div>
+                <div class="preview-item-content flex-grow">
+                  <h6 class="preview-subject ellipsis font-weight-medium"> Johnson
+                    <span class="float-right font-weight-light small-text">18 Minutes ago</span>
+                  </h6>
+                  <p class="font-weight-light small-text">
+                    Upcoming board meeting
+                  </p>
+                </div>
+              </a>
+            </div>
+          </li>
+        
+        
+          <li class="nav-item nav-search">
+            <div class="nav-link">
+              <div class="search-field d-none d-md-block">
+                <form class="d-flex align-items-stretch h-100" action="#" th:action="@{/index/buscar}" method="POST">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="fas fa-search"></i>                                          
+                        </span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Buscar una publicacion ..." id="buscar" name="buscar">
+                  </div>
+                </form>
+              </div>
+            </div>
+          </li>          
+          <li class="nav-item nav-profile dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
+              <img th:src="@{/images/logo-mini.svg}" alt="profile"/>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+              <a class="dropdown-item" href="#" th:href="@{/register/miperfil}">
+                <i class="fas fa-cog text-primary"></i>
+                Mi perfil
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" onclick="salir()">
+                <i class="fas fa-power-off text-primary"></i>
+                Logout
+              </a>
+            </div>
+          </li>
+        </ul>
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center ml-auto" type="button" data-toggle="collapse" data-target="#horizontal-top-example">
+          <span class="fa fa-bars"></span>
+        </button>
+      </div>
+    </nav>
+    <div class="container-fluid page-body-wrapper">
+      <div class="main-panel">
+        <div class="content-wrapper">
+        	<th:block th:replace="${contenido}" />
+        </div>
+        
+        
+
+        <!-- content-wrapper ends -->
+        <!-- partial:../../partials/_footer.html -->
+        <footer class="footer">
+          <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2018 <a href="https://www.urbanui.com/" target="_blank">Urbanui</a>. All rights reserved.</span>
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i class="far fa-heart text-danger"></i></span>
+          </div>
+        </footer>
+        <!-- partial -->
+      </div>
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <div hidden="true">
+  	<form th:action="@{/logout}" method="POST" id="formulario">
+		<button type="submit">Salir</button>
+	</form>
+  </div>
+  <script type="text/javascript" th:src="@{/js/jquery-3.3.1.min.js}"></script>
+  <script src="#" th:src="@{/js/plantilla_mensaje/control_mini_chat.js}"></script>
+  
+  <script src="#" th:src="@{/js/vendor.bundle.base.js}"></script>
+  <script src="#" th:src="@{/js/vendor.bundle.addons.js}"></script>
+  
+  <th:block th:replace="${mis_scripts}" />
+  
+</body>
+
+</html>

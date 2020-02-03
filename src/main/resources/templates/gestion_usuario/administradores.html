@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="base/base_super:: head(~{::title})">
+	<title>Registrar administradores</title>	
+</head>
+
+<body th:replace="base/base_super :: content(~{::contenido})">
+<contenido>
+	  <div class="page-header">
+	    <h3 class="page-title">
+	      Administradores
+	    </h3>
+	    <nav aria-label="breadcrumb">
+	      <ol class="breadcrumb">
+	        <li class="breadcrumb-item"><a href="/register/admin">Administradores</a></li>
+	        <li class="breadcrumb-item active" aria-current="page">Datos</li>
+	      </ol>
+	    </nav>
+	  </div>
+	  <div class="card">
+	    <div class="card-body">
+	      <h4 class="card-title">Administradores</h4>
+	      <div class="row">
+	        <div class="col-12">
+	          <div class="table-responsive">
+	            <table id="order-listing" class="table" th:if="${roles}">
+	              <thead>
+	                <tr>
+	                    <th>username</th>
+	                    <th>Nombre</th>
+	                    <th>apellido</th>
+	                    <th>Direccion</th>
+	                    <th>fecha de nacimiento</th>
+	                    <th>role</th>
+	                    <th>Status</th>
+	                    <th>acciones</th>
+	                </tr>
+	              </thead>
+	              <tbody>
+	                <tr th:each="role:${roles}">
+	                    <td th:text="${role.user.username}"></td>
+	                    <td th:text="${role.user.nombre}"></td>
+	                    <td th:text="${role.user.apellido}"></td>
+	                    <td th:text="${role.user.direccion}"></td>
+	                    <td th:text="${role.user.fecha_nacimiento}"></td>
+	                    <td th:text="${role.role}"></td>
+	                    <td>
+	                      <label class="badge badge-info" th:if="${role.user.enabled}">Enable</label>
+	                    </td>
+	                    <td>
+	                      <a href="#" th:href="@{/register/editar/}+${role.user.id}" class="btn btn-outline-primary">editar</a>
+	                    </td>
+	                </tr>
+	              </tbody>
+	            </table>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+
+
+
+</contenido>
+</body>
+</html>

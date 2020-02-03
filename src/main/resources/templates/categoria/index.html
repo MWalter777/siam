@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="base/base_admin:: head(~{::title})">
+	<title>Categorias</title>	
+</head>
+
+<body th:replace="base/base_admin :: content(~{::contenido})">
+<contenido>
+	  <div class="card">
+	    <div class="card-body">
+	      <h4 class="card-title">Categorias</h4>
+	      <a href="#" class="btn btn-success" data-toggle="modal" data-target="#add_categoria"><i class="fa fa-home fa-icon"></i> Agregar categorias</a>
+	      <div class="row">
+	        <div class="col-12">
+	          <div class="table-responsive">
+	            <table id="order-listing" class="table" th:if="${categorias}">
+	              <thead>
+	                <tr>
+	                    <th>Nombre categoria</th>
+	                    <th>Fecha categoria</th>
+	                    <th>Estado</th>
+	                    <th>acciones</th>
+	                </tr>
+	              </thead>
+	              <tbody>
+	                <tr th:each="categoria:${categorias}">
+	                    <td th:text="${categoria.nombre_categoria}"></td>
+	                    <td th:text="${categoria.fecha}"></td>
+	                    <td>
+	                    	<label class="badge badge-info" th:if="${categoria.estado==1}">Activo</label>
+	                    </td>
+	                    <td>
+	                   		<div th:if="${categoria.estado==1}">
+		                    	<form th:action="@{/categoria/eliminar/}+${categoria.id_categoria}" method="POST">
+		                    		<button type="submit" class="btn btn-outline-danger">Eliminar</button>
+		                    		<a class="btn btn-outline-primary" th:href="@{/animal/insert/}+${categoria.id_categoria}">Insertar animal</a>
+		                    	</form>
+	                   		</div>
+	                   		<div th:if="${categoria.estado==0}">
+		                    	<form th:action="@{/categoria/activar/}+${categoria.id_categoria}" method="POST">
+		                    		<button type="submit" class="btn btn-outline-primary">Activar</button>
+		                    	</form>
+	                   		</div>
+	                    </td>
+	                </tr>
+	              </tbody>
+	            </table>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+
+
+
+<div class="modal" id="add_categoria" tabindex="-1" role="dialog" aria-labelledby="Categoria" aria-hidden="true">
+<form action="#" th:action="@{/categoria/save}" method="POST">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel1">Agregar categoria</h4>
+      </div>
+      <div class="modal-body">
+      <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+      <fieldset>
+      	<div class="form-group">
+      		<label for="razon_social">Nombre de la categoria</label>
+      		<input id="nombre_categoria" class="form-control" name="nombre_categoria" type="text" required="true">
+      	</div>
+      </fieldset>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="submit" class="btn btn-primary" >Guardar</button>
+      </div>
+    </div>
+  </div>
+</form>
+
+</div>
+
+
+
+
+</contenido>
+</body>
+</html>

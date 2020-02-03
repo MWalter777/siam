@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="base/base_admin:: head(~{::title})">
+	<title>Index</title>	
+</head>
+
+<body th:replace="base/base_admin:: content(~{::contenido})">
+<contenido>
+
+	  <div class="card">
+	    <div class="card-body">
+	      <h4 class="card-title">Nuestros servicios</h4>
+	      <a href="#" class="btn btn-success" data-toggle="modal" data-target="#servicio"><i class="fa fa-home fa-icon"></i> Agregar servicio</a>
+	      <div class="row">
+	        <div class="col-12">
+	          <div class="table-responsive">
+	            <table id="order-listing" class="table" th:if="${servicios}">
+	              <thead>
+	                <tr>
+	                    <th>Nombre del servicio</th>
+	                    <th>Descripcion</th>
+	                    <th>Estado</th>
+	                    <th>Acciones</th>
+	                </tr>
+	              </thead>
+	              <tbody>
+	                <tr th:each="servicio:${servicios}">
+	                    <td th:text="${servicio.nombre_servicio}"></td>
+	                    <td th:text="${servicio.descripcion_servicio}"></td>
+	                    <td>
+	                    <label class="badge badge-info" th:if="${servicio.estado==1}">Activo</label>
+	                    </td>
+	                    <td>
+                   		<div th:if="${servicio.estado==1}">
+	                    	<form th:action="@{/empresa/bajar/}+${servicio.id_servicios}" method="POST">
+	                    		<button type="submit" class="btn btn-outline-danger">Eliminar</button>
+	                    	</form>
+                   		</div>
+                   		<div th:if="${servicio.estado==0}">
+	                    	<form th:action="@{/empresa/subir/}+${servicio.id_servicios}" method="POST">
+	                    		<button type="submit" class="btn btn-outline-primary">Activar</button>
+	                    	</form>
+                   		</div>
+	                    </td>
+	                </tr>
+	              </tbody>
+	            </table>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+
+
+<div class="modal" id="servicio" tabindex="-1" role="dialog" aria-labelledby="Servicio" aria-hidden="true">
+<form action="#" th:action="@{/empresa/servicio_save}" method="POST">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel1">Agregar servicio</h4>
+      </div>
+      <div class="modal-body">
+      <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+      <fieldset>
+      	<div class="form-group">
+      		<label for="razon_social">Nombre del servicio</label>
+      		<input id="nombre_servicio" class="form-control" name="nombre_servicio" type="text" required="true">
+      	</div>
+      	<div class="form-group">
+      		<label for="razon_social">Descripcion del servicio</label>
+      		<textarea id="descripcion_servicio" class="form-control" name="descripcion_servicio" type="text" required="true"></textarea>
+      	</div>
+      </fieldset>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="submit" class="btn btn-primary" >Guardar</button>
+      </div>
+    </div>
+  </div>
+</form>
+</div>
+  
+
+
+
+</contenido>
+
+</body>
+</html>

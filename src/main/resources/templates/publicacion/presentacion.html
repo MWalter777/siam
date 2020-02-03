@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="base/base_user:: head(~{::title})">
+	<title>Index</title>	
+</head>
+
+<body th:replace="base/base_user:: content(~{::contenido}, ~{::mis_scripts})">
+<contenido>
+          <div class="page-header">
+            <h3 class="page-title">
+              Publicaciones de la empresa
+            </h3>
+          </div>
+          
+          <div class="row grid-margin">
+            <div class="col-12">
+              <div class="card card-statistics">
+                <div class="card-body">
+                  <div class="d-flex flex-column flex-md-row align-items-center justify-content-between">
+                      <div class="statistics-item">
+                        <p>
+                          <i class="icon-sm fa fa-user mr-2"></i>
+                          Usuarios
+                        </p>
+                        <h2 th:text="${num_users}"></h2>
+                        <label class="badge badge-outline-success badge-pill" th:text="${porcentaje_user}+'% admin'"></label>
+                      </div>
+                      <div class="statistics-item">
+                        <p>
+                          <i class="icon-sm fas fa-hourglass-half mr-2"></i>
+                          Animales
+                        </p>
+                        <h2 th:text="${num_animal}"></h2>
+                        <label class="badge badge-outline-success badge-pill">Historial</label>
+                      </div>
+                      <div class="statistics-item">
+                        <p>
+                          <i class="icon-sm fas fa-cloud-download-alt mr-2"></i>
+                          Categorias
+                        </p>
+                        <h2 th:text="${num_categoria}"></h2>
+                        <label class="badge badge-outline-success badge-pill">clasificacion</label>
+                      </div>
+                      <div class="statistics-item">
+                        <p>
+                          <i class="icon-sm fas fa-check-circle mr-2"></i>
+                          Animales
+                        </p>
+                        <h2 th:text="${num_animal_disp}"></h2>
+                        <label class="badge badge-outline-success badge-pill">Disponibles</label>
+                      </div>
+                      <div class="statistics-item">
+                        <p>
+                          <i class="icon-sm fas fa-chart-line mr-2"></i>
+                          Adoptados
+                        </p>
+                        <h2 th:text="${animal_adoptado}"></h2>
+                        <label class="badge badge-outline-success badge-pill">Historial</label>
+                      </div>
+                      <div class="statistics-item">
+                        <p>
+                          <i class="icon-sm fas fa-circle-notch mr-2"></i>
+                          Solicitudes pendientes
+                        </p>
+                        <h2>7500</h2>
+                        <label class="badge badge-outline-danger badge-pill">16% decrease</label>
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div th:each="publicacion:${publicaciones}">
+			<div class="row">
+				<div class="col-lg-1"></div>
+				<div class="col-lg-12">
+					<div class="card">
+						<div class="card-body">
+							<h4 class="card-title" th:text="${publicacion.mensaje_publicacion}"></h4>
+							<p class="card-description" th:text="${publicacion.empresa.razon_social}"></p>
+							<div class="form-inline">
+								<div th:each="imagen:${publicacion.imagenes}" class="col-lg-3"> 
+									<img alt="imagen" src="#" th:src="${imagen.direccion_imagen}" width="250" height="250">
+								</div>
+							</div>
+							</br>
+							<div class="row">
+								<div class="col-lg-5"></div>
+								<div class="col-lg-3">
+									<a th:href="@{/publicacion/ver_publicacion/}+${publicacion.id_publicacion}" class="btn btn-primary">Ver publicacion</a>
+								</div>
+							</div>
+						</div>	
+					</div>
+				</div>       
+			</div>
+			</br>
+          </div>
+          
+          
+        <!-- Mensajes en mini chat, estilo messager -->
+        
+		<div class="screen" id="screen">
+			<input type="number" id="id_user" th:value="${id_user}" hidden="">
+			<input type="text" id="username" name="username" th:value="${username}" hidden="">
+			<input type="number" id="enviar" name="enviar" th:value="${enviar}" hidden="">
+			<input type="text" id="enviar_user" name="enviar_user" th:value="${enviar_user}" hidden="">
+			<div class="cabecera">
+				<a href="#" onclick="cerrar()"><i class="fa fa-times texto">cerrar</i></a>
+			</div>
+			<div class="conversation" id="conversation">
+			
+			</div>
+			<div class="text-bar">
+				<form class="text-bar__field" id="form-message">
+					<input type="text" placeholder="Escribir..."/>
+				</form>
+				<div class="text-bar__thumb">
+					<div class="thumb"></div>
+				</div>
+			</div>
+		</div>
+          
+          
+          
+</contenido>
+
+
+
+<mis_scripts>
+
+  <script th:src="@{/js/sockjs.min.js}"></script>
+  <script th:src="@{/js/stomp.min.js}"></script>
+  <script type="text/javascript">
+	var stompClient = null;
+	function salir() {
+		var formulario = document.getElementById('formulario');
+		console.log("presiono salir");
+		formulario.submit();
+	}
+	
+	function cerrar() {
+		$('#screen').hide();
+	}
+	
+	
+	function onMessageReceived(payload) {
+	    var message = JSON.parse(payload.body);
+
+	    var messageElement = document.createElement('div');
+
+	    if(message.type === 'JOIN') {
+	        messageElement.classList.add('event-message');
+	        message.content = message.sender + ' joined!';
+	        console.log(message.content);
+	    } else if (message.type === 'LEAVE') {
+	        messageElement.classList.add('event-message');
+	        message.content = message.sender + ' left!';
+	    	console.log(message.content);
+	    } else {
+	    	var username_sender = message.sender;
+	    	console.log("Usuario que envio: "+username_sender);
+	    	var enviar_user = document.getElementById('enviar_user').value.trim();
+	    	console.log("Usuario con el que vamos a validar"+enviar_user);
+	    	if (enviar_user == username_sender) {
+	    		var messageArea = document.getElementById('conversation');
+	    		var messageElement = document.createElement('div');
+	    		messageElement.id="id_lista";
+	            messageElement.classList.add('messages');
+	            messageElement.classList.add('messages--received');
+	            var textElement = document.createElement('div');
+	            textElement.classList.add('message');
+	            var messageText = document.createTextNode(message.content);
+	            textElement.appendChild(messageText);
+	            messageElement.appendChild(textElement);
+	            messageArea.appendChild(messageElement);
+	            messageArea.scrollTop = messageArea.scrollHeight;
+		    	abrir();				
+			}else{
+	    		var contador1 = $('#contador1').text().trim();
+	    		console.log(contador1);
+	    		$('#contador1').text(parseInt(contador1)+1);
+	    		$('#contador2').text(parseInt(contador1)+1);
+			}
+	    }
+	}
+	
+	function onConnected() {
+	    // Se suscribe al canal que necesita
+		var id_user = document.querySelector('#id_user').value.trim();
+	    var username = document.querySelector('#username').value.trim();
+	    stompClient.subscribe('/topic/'+id_user, onMessageReceived);
+
+	    // Tell your username to the server
+	    stompClient.send("/app/chat.addUser/"+id_user,
+	        {},
+	        JSON.stringify({sender: username, type: 'JOIN'})
+	    )
+
+	}
+	
+	function onError(error) {
+	    connectingElement.textContent = 'Could not connect to WebSocket server. Please refresh this page to try again!';
+	    connectingElement.style.color = 'red';
+	}
+	
+	function abrir() {        
+		$('#screen').show();
+	}
+	
+	function consumirJSon() {
+	    var id_user_enviar = document.getElementById('enviar').value.trim();
+	    var id_user = document.getElementById('id_user').value.trim();
+	    var url = "/service_rest/all_messages/"+id_user_enviar+"/"+id_user;
+	    var messageArea = document.getElementById('conversation');	    
+        var yo = document.getElementById('username').value.trim();
+        $.get(url,function(data,status){
+            for(let i=0;i<data.length;i++){
+                var valor = data[i];
+                var messageElement = document.createElement('div');
+        		messageElement.id="id_lista";
+                messageElement.classList.add('messages');                
+                if( yo == valor.username_emisor ){
+                	messageElement.classList.add('messages--sent');
+                }else{
+                	messageElement.classList.add('messages--received');
+                }
+                var textElement = document.createElement('div');
+                textElement.classList.add('message');
+                var messageText = document.createTextNode(valor.contenido);
+                textElement.appendChild(messageText);
+                messageElement.appendChild(textElement);
+                messageArea.appendChild(messageElement);
+            }
+        });
+        $("#conversation").animate({ scrollTop: $(document).height() + 90000 }, "fast");
+	}	
+	var id_user_prueba = document.querySelector('#id_user').value.trim();
+    var username_prueba = document.querySelector('#username').value.trim();
+	if(id_user_prueba && username_prueba){
+	    var socket = new SockJS('/ws');
+	    stompClient = Stomp.over(socket);
+	    stompClient.connect({}, onConnected, onError);
+	    consumirJSon();
+	}else{
+		cerrar();
+	}
+	</script>
+
+</mis_scripts>
+
+</body>
+</html>

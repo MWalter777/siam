@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="base/base_user:: head(~{::title})">
+	<title>Index</title>	
+</head>
+
+<body th:replace="base/base_user:: content(~{::contenido}, ~{::mis_scripts})">
+<contenido>
+
+	  <div class="card">
+	    <div class="card-body">
+	      <h4 class="card-title">Solicitudes</h4>
+	      <div class="row">
+	        <div class="col-12">
+	          <div class="table-responsive">
+	            <table id="order-listing" class="table" th:if="${solicitudes}">
+	              <thead>
+	                <tr>
+	                    <th>Codigo solicitud</th>
+	                    <th>Descripcion solicitud</th>
+	                    <th>Animal</th>
+	                    <th>Solicitante</th>
+	                    <th>Estado</th>
+	                </tr>
+	              </thead>
+	              <tbody>
+	                <tr th:each="solicitud:${solicitudes}">
+	                    <td th:text="${solicitud.codigo_solicitud}"></td>
+	                    <td th:text="${solicitud.descripcion_solicitud}"></td>
+	                    <td th:text="${solicitud.animal.nombre_animal}"></td>
+	                    <td th:text="${solicitud.user.username}"></td>
+	                    <td>
+	                    	<label class="badge badge-info" th:if="${solicitud.estado==1}">Aceptada</label>
+	                    	<label class="badge badge-warning" th:if="${solicitud.estado==0}">Pendiente</label>
+	                    	<label class="badge badge-danger" th:if="${solicitud.estado==2}">Rechazada</label>
+	                    </td>
+	                </tr>
+	              </tbody>
+	            </table>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+</contenido>
+
+<mis_scripts></mis_scripts>
+
+
+</body>
+</html>

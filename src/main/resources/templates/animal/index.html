@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="base/base_admin:: head(~{::title})">
+	<title>Categorias</title>	
+</head>
+
+<body th:replace="base/base_admin :: content(~{::contenido})">
+<contenido>
+	  <div class="card">
+	    <div class="card-body">
+	      <h4 class="card-title">Animales</h4>
+	      <div class="row">
+	        <div class="col-12">
+	          <div class="table-responsive">
+	            <table id="order-listing" class="table" th:if="${animales}">
+	              <thead>
+	                <tr>
+	                    <th>Nombre animal</th>
+	                    <th>Categoria</th>
+	                    <th>Raza animal</th>
+	                    <th>Fecha de rescate</th>
+	                    <th>Edad aproximada</th>
+	                    <th>Estado</th>
+	                </tr>
+	              </thead>
+	              <tbody>
+	                <tr th:each="animal:${animales}">
+	                    <td th:text="${animal.nombre_animal}"></td>
+	                    <td th:text="${animal.categoria.nombre_categoria}"></td>
+	                    <td th:text="${animal.raza_animal}"></td>
+	                    <td th:text="${animal.fecha_rescate}"></td>
+	                    <td th:text="${animal.edad_aproximada}"></td>
+	                    <td>
+	                    	<label class="badge badge-info" th:if="${animal.estado_animal==1}">Activo</label>
+	                    </td>
+	                    <td>
+	                   		<div th:if="${animal.estado_animal==1}">
+		                    	<form th:action="@{/animal/delete/}+${animal.id_animal}" method="POST">
+		                    		<button type="submit" class="btn btn-outline-danger">Eliminar</button>
+		                    		<a class="btn btn-outline-primary" th:href="@{/animal/edit/}+${animal.id_animal}">Editar animal</a>
+		                    	</form>
+	                   		</div>
+	                   		<div th:if="${animal.estado_animal==0}">
+		                    	<form th:action="@{/animal/getup/}+${animal.id_animal}" method="POST">
+		                    		<button type="submit" class="btn btn-outline-primary">Activar</button>
+		                    	</form>
+	                   		</div>
+	                    </td>
+	                </tr>
+	              </tbody>
+	            </table>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+</contenido>
+</body>
+</html>

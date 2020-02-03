@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="base/base_super:: head(~{::title})">
+	<title>Editar empresa</title>	
+</head>
+
+<body th:replace="base/base_super :: content(~{::contenido})">
+<contenido>
+	 <div class="row">
+	 	<div class="col-lg-2"></div>
+	   <div class="col-lg-6">
+	     <div class="card">
+	       <div class="card-body">
+	         <h4 class="card-title">Editar datos de su empresa</h4>
+	             <div th:if="${exito !=null}" class="alert alert-success" role="alert">
+	             	Empresa editada con exito
+                 </div>
+                 
+	             <div th:if="${error !=null}" class="alert alert-danger" role="alert">
+                	Error al editar empresa, contacte con el desarrollador
+                 </div>
+	         <form class="cmxform" id="signupForm" action="#" th:action="@{/empresa/update}" method="POST" th:objects="*{empresa}" enctype="multipart/form-data">
+	         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+	         <input id="id_empresa" class="form-control" name="id_empresa" type="number" required="true" th:fields="*{id_empresa}" th:value="${empresa.id_empresa}" hidden="true">
+	           <fieldset>
+	             <div class="form-group">
+	               <label for="razon_social">Razon social</label>
+	               <input id="razon_social" class="form-control" name="razon_social" type="text" required="true" th:fields="*{razon_social}" th:value="${empresa.razon_social}">
+	             </div>
+	             <div class="form-group">
+	               <label for="lastname">codigo</label>
+	               <input id="codigo_empresa" class="form-control" name="codigo_empresa" type="text" required="true" th:fields="*{codigo_empresa}" th:value="${empresa.codigo_empresa}">
+	             </div>
+	             <div class="form-group">
+	               <label for="descripcion">Descripcion</label>
+	               <input id="descripcion" class="form-control" name="descripcion" type="text" th:fields="*{descripcion}" required="true" th:value="${empresa.descripcion}">
+	             </div>
+	             <div class="form-group">
+	               <label for="imagen">imagen empresa</label>
+	               <input id="file" class="form-control" name="file" type="file" accept=".jpg, .png">
+	             </div>
+	             <div class="form-group">
+	               <label for="direccion">nit empresa</label>
+	               <input id="nit_empresa" class="form-control" name="nit_empresa" type="text" required="true" th:fields="*{nit_empresa}" th:value="${empresa.nit_empresa}">
+	             </div>
+	             <div class="form-group">
+	               <label for="direccion">Fecha de creacion</label>
+	               <input id="fecha" class="form-control" name="fecha" type="date" th:max="*{fecha_actual}" required="true" th:value="${empresa.fecha_creacion}">
+	             </div>
+	             <div class="form-group">
+	               <label for="direccion">Telefono</label>
+	               <input id="telefono" class="form-control" name="telefono" type="text" required="true" th:fields="*{telefono}" th:value="${empresa.telefono}">
+	             </div>
+	             <div class="form-group">
+	               <label for="direccion">Correo institucional</label>
+	               <input id="correo" class="form-control" name="correo" type="email" required="true" th:fields="*{correo}" th:value="${empresa.correo}">
+	             </div>
+	             <input class="btn btn-primary" type="submit" value="Actualizar">
+	           </fieldset>
+	         </form>
+	       </div>
+	     </div>
+	   </div>
+	 </div>
+	
+</contenido>
+
+</body>
+</html>

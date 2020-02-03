@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="base/base_admin:: head(~{::title})">
+	<title>Publicacion</title>	
+</head>
+
+<body th:replace="base/base_admin:: content(~{::contenido})">
+<contenido>
+	  <div class="card">
+	    <div class="card-body">
+	      <h4 class="card-title">Publicaciones</h4>
+	      <div class="row">
+	        <div class="col-12">
+	          <div class="table-responsive">
+	            <table id="order-listing" class="table" th:if="${publicaciones}">
+	              <thead>
+	                <tr>
+	                    <th>Mensaje</th>
+	                    <th>Fecha de modificacion</th>
+	                    <th>Estado</th>
+	                    <th></th>
+	                </tr>
+	              </thead>
+	              <tbody>
+	                <tr th:each="publicacion:${publicaciones}">
+	                    <td th:text="${publicacion.mensaje_publicacion}"></td>
+	                    <td th:text="${publicacion.fecha_publicacion}"></td>
+	                    <td>
+	                    	<label class="badge badge-info" th:if="${publicacion.estado==1}">Activo</label>
+	                    </td>
+	                    <td>
+	                   		<div th:if="${publicacion.estado==1}">
+		                    	<form th:action="@{/publicacion/delete/}+${publicacion.id_publicacion}" method="POST">
+		                    		<button type="submit" class="btn btn-outline-danger">Eliminar</button>
+		                    		<a class="btn btn-outline-primary" th:href="@{/publicacion/edit/}+${publicacion.id_publicacion}">Editar publicacion</a>
+		                    	</form>
+	                   		</div>
+	                   		<div th:if="${publicacion.estado==0}">
+		                    	<form th:action="@{/publicacion/getup/}+${publicacion.id_publicacion}" method="POST">
+		                    		<button type="submit" class="btn btn-outline-primary">Activar</button>
+		                    	</form>
+	                   		</div>
+	                    </td>
+	                </tr>
+	              </tbody>
+	            </table>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+</contenido>
+
+</body>
+</html>

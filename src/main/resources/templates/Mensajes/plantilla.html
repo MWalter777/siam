@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- 
+	Estilos de la plantilla original
+-->
+  <link rel="stylesheet" href="#" th:href="@{css/all.min.css}">
+  <link rel="stylesheet" href="#" th:href="@{css/vendor.bundle.base.css}">
+  <link rel="stylesheet" href="#" th:href="@{css/vendor.bundle.addons.css}">
+  
+  <title th:text="${#httpServletRequest.remoteUser}"></title>
+
+  <!-- inject:css -->
+  <link rel="stylesheet" href="#" th:href="@{css/style.css}">
+
+  <link rel="shortcut icon" href="#" th:href="@{images/favicon.png}" />
+  
+
+<!-- 
+Estilos de la mensajeria
+ -->  
+<link th:href='@{css/saint.css}' rel='stylesheet' type='text/css'>
+<script th:src="@{js/plantilla_mensaje/hoy3lrg.js}"></script>
+<script>try{Typekit.load({ async: true });}catch(e){}</script>
+<link rel='stylesheet prefetch' th:href='@{css/reset.min.css}'>
+<link rel='stylesheet prefetch' th:href='@{css/fuente_mensaje.min.css}'>
+<link rel='stylesheet prefetch' th:href='@{css/reset2.min.css}'>
+<link rel='stylesheet prefetch' th:href='@{css/estilo.css}'>
+
+
+
+</head>
+
+<body class="horizontal-menu">
+<!-- 
+navbar y toda la onda :v
+ -->
+ 
+
+  <div class="container-scroller">
+    <nav class="navbar horizontal-layout-navbar fixed-top navbar-expand-lg">
+      <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
+        <a class="navbar-brand brand-logo" th:href="@{/index}"><img src="#" th:src="@{/images/logo.svg}" alt="logo"/></a>
+        <a class="navbar-brand brand-logo-mini" th:href="@{/index}"><img th:src="@{/images/logo-mini.svg}" alt="logo"/></a>                    
+      </div>
+      <div class="navbar-menu-wrapper d-flex flex-grow">
+        <ul class="navbar-nav navbar-nav-left collapse navbar-collapse" id="horizontal-top-example">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle active" href="#" id="projects-dropdown" data-toggle="dropdown" aria-expanded="false">
+              Publicaciones
+            </a>
+            <div class="dropdown-menu navbar-dropdown" aria-labelledby="projects-dropdown">
+              <a class="dropdown-item" href="/">
+                <i class="mdi mdi-laptop-mac mr-2 text-primary"></i>
+                Todas las publicaciones
+              </a>
+              <div class="dropdown-divider"></div>                
+              <a class="dropdown-item" href="/publicaciones_empresa">
+                <i class="mdi mdi-cellphone-android mr-2 text-primary"></i>
+                publicaciones de la empresa
+              </a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="employees-dropdown" data-toggle="dropdown" aria-expanded="false">
+              Nuestra empresa
+            </a>
+            <div class="dropdown-menu navbar-dropdown" aria-labelledby="employees-dropdown">
+
+              <a class="dropdown-item" href="#" th:href="@{/empresa/descripcion}">
+                <i class="mdi mdi-scale-balance mr-2 text-primary"></i>
+                Descripcion de la empresa
+              </a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="actions-dropdown" data-toggle="dropdown" aria-expanded="false">
+              Contactenos
+            </a>
+            <div class="dropdown-menu navbar-dropdown" aria-labelledby="actions-dropdown">
+              <a class="dropdown-item" href="/mensajes">
+                <i class="mdi mdi-launch mr-2 text-primary"></i>
+                Mensajes
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">
+                <i class="fa fa-user-multiple-outline mr-2 text-primary"></i>
+                Enviar correo
+              </a>
+            </div>
+          </li>
+          
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="actions-dropdown" data-toggle="dropdown" aria-expanded="false">
+              Solicitudes
+            </a>
+            <div class="dropdown-menu navbar-dropdown" aria-labelledby="actions-dropdown">
+              <a class="dropdown-item" href="/adopcion/mi_solicitud">
+                <i class="mdi mdi-launch mr-2 text-primary"></i>
+                Mis solicitudes
+              </a>
+            </div>
+          </li>
+
+          
+        </ul>
+        <ul class="navbar-nav navbar-nav-right">
+          <li class="nav-item dropdown" th:if="${mensajes!=null}">
+            <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+              <i class="fas fa-envelope mx-0"></i>
+              <span class="count">25</span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
+              <div class="dropdown-item">
+                <p class="mb-0 font-weight-normal float-left">You have 7 unread mails
+                </p>
+                <span class="badge badge-info badge-pill float-right">View all</span>
+              </div>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                    <img src="http://via.placeholder.com/36x36" alt="image" class="profile-pic">
+                </div>
+                <div class="preview-item-content flex-grow">
+                  <h6 class="preview-subject ellipsis font-weight-medium">David Grey
+                    <span class="float-right font-weight-light small-text">1 Minutes ago</span>
+                  </h6>
+                  <p class="font-weight-light small-text">
+                    The meeting is cancelled
+                  </p>
+                </div>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                    <img src="http://via.placeholder.com/36x36" alt="image" class="profile-pic">
+                </div>
+                <div class="preview-item-content flex-grow">
+                  <h6 class="preview-subject ellipsis font-weight-medium">Tim Cook
+                    <span class="float-right font-weight-light small-text">15 Minutes ago</span>
+                  </h6>
+                  <p class="font-weight-light small-text">
+                    New product launch
+                  </p>
+                </div>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                    <img src="http://via.placeholder.com/36x36" alt="image" class="profile-pic">
+                </div>
+                <div class="preview-item-content flex-grow">
+                  <h6 class="preview-subject ellipsis font-weight-medium"> Johnson
+                    <span class="float-right font-weight-light small-text">18 Minutes ago</span>
+                  </h6>
+                  <p class="font-weight-light small-text">
+                    Upcoming board meeting
+                  </p>
+                </div>
+              </a>
+            </div>
+          </li>
+        
+        
+          <li class="nav-item nav-search">
+            <div class="nav-link">
+              <div class="search-field d-none d-md-block">
+                <form class="d-flex align-items-stretch h-100" action="#" th:action="@{/index/buscar}" method="POST">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="fas fa-search"></i>                                          
+                        </span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Buscar una publicacion ..." id="buscar" name="buscar">
+                  </div>
+                </form>
+              </div>
+            </div>
+          </li>          
+          <li class="nav-item nav-profile dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
+              <img th:src="@{/images/logo-mini.svg}" alt="profile"/>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+              <a class="dropdown-item" href="#" th:href="@{/register/miperfil}">
+                <i class="fas fa-cog text-primary"></i>
+                Mi perfil
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" onclick="salir()">
+                <i class="fas fa-power-off text-primary"></i>
+                Logout
+              </a>
+            </div>
+          </li>
+        </ul>
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center ml-auto" type="button" data-toggle="collapse" data-target="#horizontal-top-example">
+          <span class="fa fa-bars"></span>
+        </button>
+      </div>
+    </nav>
+    <div class="container-fluid page-body-wrapper">
+      <div class="main-panel">
+        <div class="content-wrapper">
+
+
+<!-- 
+
+Parte de los mensajes
+
+ -->
+     <div id="username-page" hidden="true">
+        <div class="username-page-container">
+            <h1 class="title">Escribe tu nombre</h1>
+            <form id="usernameForm" name="usernameForm">
+                <div class="form-group">
+                    <input type="text" id="name" placeholder="Username" autocomplete="off" class="form-control" th:value="${username}" />
+                            	<input type="text" id="id_user" name="id_user" th:value="${id_user}">
+        	<input type="text" id="enviar" name="enviar" th:value="${enviar}">
+            <div class="chat-header">
+            	<input type="text" th:value="${username}" id="username" name="username" hidden="">
+            	<input type="text" th:value="${username_to}" id="usernamereceptor" name="usernamereceptor" >
+                <h2>Ejemplo</h2>
+            </div>
+                    
+                    
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="accent username-submit">Iniciar chat</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+<div id="frame">
+	<div id="sidepanel">
+		<div id="profile">
+			<div class="wrap">
+				<img id="profile-img" th:src="@{images/logo-mini.svg}" class="online" alt="" />
+				<p th:text="${username}"></p>
+			</div>
+		</div>
+		<div id="search">
+			<label for=""><i class="fa fa-search" aria-hidden="true"></i></label>
+			<input type="text" placeholder="Buscar contacto..." id="user_search" name="user_search" />
+		</div>
+		<div id="contacts">
+			<ul>
+			</ul>
+		</div>
+		<div id="bottom-bar">
+
+		</div>
+	</div>
+	<div class="content">
+		<div class="contact-profile">
+			<img th:src="@{images/users.png}" alt="" />
+			<p id="user_to_head"></p>
+			<strong id="error_socket" class="alert alert-danger" hidden="true">Error! socket ha dejado de funcionar, recargue la pag.</strong>
+			<div class="social-media">
+				<i class="fa fa-facebook" aria-hidden="true"></i>
+				<i class="fa fa-twitter" aria-hidden="true"></i>
+				 <i class="fa fa-instagram" aria-hidden="true"></i>
+			</div>
+		</div>
+		<div class="messages">
+			<ul id="lista_mensajes">
+
+			</ul>
+		</div>
+		<form id="messageForm" name="messageForm" nameForm="messageForm">
+			<div class="message-input">
+				<div class="wrap">
+				<input type="text" id="message" placeholder="Type a message..." autocomplete="off" />
+				<i class="fa fa-paperclip attachment" aria-hidden="true"></i>
+				<button class="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+
+
+
+        </div>
+      </div>
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+
+
+<script th:src='@{js/plantilla_mensaje/jquery-2.2.4.min.js}'></script>
+
+<script >
+$(".messages").animate({ scrollTop: $(document).height() }, "fast");
+
+$("#profile-img").click(function() {
+	$("#status-options").toggleClass("active");
+});
+
+$(".expand-button").click(function() {
+  $("#profile").toggleClass("expanded");
+	$("#contacts").toggleClass("expanded");
+});
+
+$("#status-options ul li").click(function() {
+	$("#profile-img").removeClass();
+	$("#status-online").removeClass("active");
+	$("#status-away").removeClass("active");
+	$("#status-busy").removeClass("active");
+	$("#status-offline").removeClass("active");
+	$(this).addClass("active");
+	
+	if($("#status-online").hasClass("active")) {
+		$("#profile-img").addClass("online");
+	} else if ($("#status-away").hasClass("active")) {
+		$("#profile-img").addClass("away");
+	} else if ($("#status-busy").hasClass("active")) {
+		$("#profile-img").addClass("busy");
+	} else if ($("#status-offline").hasClass("active")) {
+		$("#profile-img").addClass("offline");
+	} else {
+		$("#profile-img").removeClass();
+	};
+	
+	$("#status-options").removeClass("active");
+});
+
+function newMessage() {
+	message = $(".message-input input").val();
+	if($.trim(message) == '') {
+		return false;
+	}
+	
+    var messageContent = messageInput.value.trim();
+    var id_user_enviar = document.querySelector('#enviar').value.trim();
+    var id_user = document.querySelector('#id_user').value.trim();
+    
+    console.log("id"+id_user_enviar);
+    var valor = '#cantidad_valor'+id_user_enviar;
+	var id_notif_valor = document.querySelector(valor);
+	id_notif_valor.value = 0;
+	var newValor = '#cantidad'+id_user_enviar;
+	var cant = '('+id_notif_valor.value+')'
+	$(newValor).text(cant);
+
+    if(message && stompClient) {
+        var chatMessage = {
+            sender: username,
+            content: messageInput.value,
+            type: 'CHAT',
+            user_from: id_user
+        };
+
+        stompClient.send("/app/chat.sendMessage/"+id_user_enviar, {}, JSON.stringify(chatMessage));
+        //mandamos el mensaje, ahora hay que mostrar lo que mandamos
+    }
+		
+	
+	var messageArea = document.getElementById('lista_mensajes');
+    var messageElement = document.createElement('li');
+    messageElement.id="id_lista";
+    messageElement.classList.add('sent');
+    
+    var textElement = document.createElement('p');
+    var messageText = document.createTextNode(message);
+    textElement.appendChild(messageText);
+
+    messageElement.appendChild(textElement);
+    
+    messageArea.appendChild(messageElement);
+    
+	$('.message-input input').val(null);
+	$(".messages").animate({ scrollTop: $(document).height() + 90000 }, "fast");
+	event.preventDefault();
+};
+
+$('.submit').click(function() {
+  newMessage();
+});
+
+$(window).on('keydown', function(e) {
+  if (e.which == 13) {
+    newMessage();
+    return false;
+  }
+});
+</script>
+
+
+
+
+
+  <div hidden="true">
+  	<form th:action="@{/logout}" method="POST" id="formulario">
+		<button type="submit">Salir</button>
+	</form>
+  </div>
+<script type="text/javascript">
+	function salir() {
+		var formulario = document.getElementById('formulario');
+		console.log("presiono salir");
+		formulario.submit();
+	}
+</script>
+
+  <script src="#" th:src="@{js/vendor.bundle.base.js}"></script>
+  <script src="#" th:src="@{js/vendor.bundle.addons.js}"></script>  
+  <script th:src="@{js/off-canvas.js}"></script>
+  <script th:src="@{js/hoverable-collapse.js}"></script>
+  <script th:src="@{js/misc.js}"></script>
+  <script th:src="@{js/settings.js}"></script>
+  <script th:src="@{js/todolist.js}"></script>
+  <script th:src="@{/js/sockjs.min.js}"></script>
+  <script th:src="@{/js/stomp.min.js}"></script>
+  <script th:src="@{/js/plantilla_mensaje/main.js}"></script>
+  
+
+
+</body>
+</html>

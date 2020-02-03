@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="base/base_user:: head(~{::title})">
+	<title>Index</title>	
+</head>
+
+<body th:replace="base/base_user:: content(~{::contenido}, ~{::mis_scripts})">
+<contenido>
+
+	<div class="row">
+	   <div class="col-lg-1"></div>
+	   <div class="col-lg-10">
+	     <div class="card">
+	       <div class="card-body">
+	         <h4 class="card-title">Solicitar esta mascota</h4>
+	             <div th:if="${exito !=null}" class="alert alert-success" role="alert">
+	             	Solicitud creada con exito, un administrador se comunicara con usted
+                 </div>
+                 <div th:if="${existe !=null}" class="alert alert-danger" role="alert">
+					Ya realizaste una solicitud, no puedes hacerlo nuevamente
+                 </div>
+                 
+	             <div th:if="${error !=null}" class="alert alert-danger" role="alert">
+	             	Ocurrio un error! vuelva a intentarlo en otro momento
+                 </div>
+	         <form class="cmxform" id="signupForm" action="#" th:action="@{/adopcion/save}" method="POST" th:objects="*{solicitud}" th:if="${existe==null}">
+	         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+	         <input id="id_animal" class="form-control" name="id_animal" type="number" required="true" th:value="${id_animal}" hidden="true">
+	         <input id="id_usuario" class="form-control" name="id_usuario" type="number" required="true" th:value="${id_usuario}" hidden="true">
+	           <fieldset>
+	             <div class="form-group">
+	               <label for="razon_social">Por que quieres esta mascota?</label>
+	               <input id="descripcion_solicitud" class="form-control" name="descripcion_solicitud" type="text" required="true" th:fields="*{descripcion_solicitud}">
+	             </div>
+	             <div class="form-group">
+	               <label for="direccion">salario actual</label>
+	               <input id="salario_actual" class="form-control" name="salario_actual" type="number" step="0.01" required="true" th:fields="*{salario_actual}" th:value="${solicitud.salario_actual}">
+	             </div>
+	             <div class="form-group">
+	               <label for="direccion">numero mascotas</label>
+	               <input id="numero_mascotas" class="form-control" name="numero_mascotas" type="number" required="true" th:fields="*{numero_mascotas}" th:value="${solicitud.numero_mascotas}">
+	             </div>
+	             <input class="btn btn-primary" type="submit" value="Solicitar">
+	           </fieldset>
+	         </form>
+	       </div>
+	     </div>
+	   </div>
+	   <div class="col-lg-1"></div>
+	   <div class="col-lg-1"></div>
+	   <div class="col-lg-10">
+			<div class="card">
+				<div class="card-body">
+					<a th:href="@{/animal/ver/}+${animal.id_animal}"><h4 class="card-title" th:text="${animal.nombre_animal}"></h4></a>
+					<p class="card-description" th:text="${animal.descripcion_animal}"></p>
+					<div class="form-inline">
+						<div th:each="imagen:${animal.imagenes}" class="col-lg-3"> 
+							<img alt="imagen" src="#" th:src="${imagen.direccion_imagen}" width="250" height="250">
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	 </div>
+</contenido>
+
+<mis_scripts></mis_scripts>
+
+</body>
+</html>

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head(title)">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title th:replace="${title}"></title>
+  <link rel="stylesheet" href="#" th:href="@{/css/all.min.css}">
+  <link rel="stylesheet" href="#" th:href="@{/css/vendor.bundle.base.css}">
+  <link rel="stylesheet" href="#" th:href="@{/css/vendor.bundle.addons.css}">
+  <link rel="stylesheet" href="#" th:href="@{/css/style.css}">
+  <!-- endinject -->
+  <link rel="shortcut icon" href="#" th:href="@{/images/favicon.png}" />
+</head>
+
+<body th:fragment="content(contenido)">
+  <div class="container-scroller">
+
+    <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row default-layout-navbar">
+      <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+        <a class="navbar-brand brand-logo" href="/"><img src="#" th:src="@{/images/logo.svg}" alt="logo"/></a>
+        <a class="navbar-brand brand-logo-mini" href="/"><img src="#" th:src="@{/images/logo-mini.svg}" alt="logo"/></a>
+      </div>
+      <div class="navbar-menu-wrapper d-flex align-items-stretch">
+        <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+          <span class="fas fa-bars"></span>
+        </button>
+        <ul class="navbar-nav">
+          <li class="nav-item nav-search d-none d-md-flex">
+            <div class="nav-link">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+        <ul class="navbar-nav navbar-nav-right">
+          <li class="nav-item dropdown" th:if="${mensajes!=null}">
+            <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+              <i class="fas fa-envelope mx-0"></i>
+              <span class="count">25</span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
+              <div class="dropdown-item">
+                <p class="mb-0 font-weight-normal float-left">You have 7 unread mails
+                </p>
+                <span class="badge badge-info badge-pill float-right">View all</span>
+              </div>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                    <img src="http://via.placeholder.com/36x36" alt="image" class="profile-pic">
+                </div>
+                <div class="preview-item-content flex-grow">
+                  <h6 class="preview-subject ellipsis font-weight-medium">David Grey
+                    <span class="float-right font-weight-light small-text">1 Minutes ago</span>
+                  </h6>
+                  <p class="font-weight-light small-text">
+                    The meeting is cancelled
+                  </p>
+                </div>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                    <img src="http://via.placeholder.com/36x36" alt="image" class="profile-pic">
+                </div>
+                <div class="preview-item-content flex-grow">
+                  <h6 class="preview-subject ellipsis font-weight-medium">Tim Cook
+                    <span class="float-right font-weight-light small-text">15 Minutes ago</span>
+                  </h6>
+                  <p class="font-weight-light small-text">
+                    New product launch
+                  </p>
+                </div>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                    <img src="http://via.placeholder.com/36x36" alt="image" class="profile-pic">
+                </div>
+                <div class="preview-item-content flex-grow">
+                  <h6 class="preview-subject ellipsis font-weight-medium"> Johnson
+                    <span class="float-right font-weight-light small-text">18 Minutes ago</span>
+                  </h6>
+                  <p class="font-weight-light small-text">
+                    Upcoming board meeting
+                  </p>
+                </div>
+              </a>
+            </div>
+          </li>
+        
+        
+          <li class="nav-item nav-profile dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
+              <img th:src="@{/images/logo-mini.svg}" alt="profile"/>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+              <a class="dropdown-item" href="#" th:href="@{/register/miperfil}">
+                <i class="fas fa-cog text-primary"></i>
+                Mi perfil
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" onclick="salir()">
+                <i class="fas fa-power-off text-primary"></i>
+                Logout
+              </a>
+            </div>
+          </li>
+        </ul>
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+          <span class="fas fa-bars"></span>
+        </button>
+      </div>
+    </nav>
+    
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+ 
+      <div class="theme-setting-wrapper">
+        <div id="settings-trigger"><i class="fas fa-fill-drip"></i></div>
+        <div id="theme-settings" class="settings-panel">
+          <i class="settings-close fa fa-times"></i>
+          <p class="settings-heading">SIDEBAR SKINS</p>
+          <div class="sidebar-bg-options selected" id="sidebar-light-theme"><div class="img-ss rounded-circle bg-light border mr-3"></div>Light</div>
+          <div class="sidebar-bg-options" id="sidebar-dark-theme"><div class="img-ss rounded-circle bg-dark border mr-3"></div>Dark</div>
+          <p class="settings-heading mt-2">HEADER SKINS</p>
+          <div class="color-tiles mx-0 px-4">
+            <div class="tiles primary"></div>
+            <div class="tiles success"></div>
+            <div class="tiles warning"></div>
+            <div class="tiles danger"></div>
+            <div class="tiles info"></div>
+            <div class="tiles dark"></div>
+            <div class="tiles default"></div>
+          </div>
+        </div>
+      </div>
+      
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+          <li class="nav-item nav-profile">
+            <div class="nav-link">
+              <div class="profile-image">
+                <img src="#" th:src="@{/images/logo-mini.svg}" alt="image"/>
+              </div>
+              <div class="profile-name">
+                <p class="name" th:text="${#httpServletRequest.remoteUser}">
+                </p>
+                <p class="designation">
+                  Administrador
+                </p>
+              </div>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/">
+              <i class="fa fa-home menu-icon"></i>
+              <span class="menu-title">Home</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#page-layouts" aria-expanded="false" aria-controls="page-layouts">
+              <i class="fab fa-trello menu-icon"></i>
+              <span class="menu-title">Empresa</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="page-layouts">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="/empresa/servicios">Administrar servicios</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
+              <i class="fab fa-wpforms menu-icon"></i>
+              <span class="menu-title">Administrar mascotas</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="form-elements">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"><a class="nav-link" href="/categoria/index">Admin. categorias</a></li>
+                <li class="nav-item"><a class="nav-link" href="/animal/index">Admin, Animales</a></li>
+              </ul>
+            </div>
+          </li>
+          
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
+              <i class="fas fa-table menu-icon"></i>
+              <span class="menu-title">Publicaciones</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="tables">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="/publicacion/create">Crear publicaciones</a></li>
+                <li class="nav-item"> <a class="nav-link" href="/publicacion/index">Admin publicaciones</a></li>
+                <li class="nav-item"> <a class="nav-link" href="/publicacion/publicaciones">Ver publicaciones</a></li>
+              </ul>
+            </div>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
+              <i class="fa fa-stop-circle menu-icon"></i>
+              <span class="menu-title">Solicitudes de adopcion</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="icons">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="/adopcion/index">Solicitudes</a></li>
+              </ul>
+            </div>
+          </li>
+          
+          <li class="nav-item">
+          	<a class="nav-link" data-toggle="collapse" href="#messages" aria-expanded="false" aria-controls="#messages">
+          		<i class="fa fa-envelope menu-icon"></i>
+          		<span class="menu-title">Mensajes</span>
+          		<i class="menu-arrow"></i>
+          	</a>
+          	<div class="collapse" id="messages">
+          		<ul class="nav flex-column sub-menu">
+          			<li class="nav-item"><a href="/mensajes" class="nav-link">Mensajes</a> </li>
+          		</ul>
+          	</div>
+          </li>
+
+
+
+        </ul>
+      </nav>
+      <!-- partial -->
+      <div class="main-panel">
+        <div class="content-wrapper">
+	        <th:block th:replace="${contenido}" />
+        </div>
+        <!-- content-wrapper ends -->
+        <!-- partial:../../partials/_footer.html -->
+        <footer class="footer">
+          <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2018 <a href="https://www.urbanui.com/" target="_blank">Urbanui</a>. All rights reserved.</span>
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i class="far fa-heart text-danger"></i></span>
+          </div>
+        </footer>
+        <!-- partial -->
+      </div>
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  
+<form th:action="@{/logout}" method="POST" id="formulario" hidden="true">
+	<button type="submit">Salir</button>
+</form>
+<script type="text/javascript">
+	function salir() {
+		var formulario = document.getElementById('formulario');
+		console.log("presiono salir");
+		formulario.submit();
+	}
+</script>
+  <script src="#" th:src="@{/js/vendor.bundle.base.js}"></script>
+  <script src="#" th:src="@{/js/vendor.bundle.addons.js}"></script>
+  <!-- inject:js -->
+  <script src="#" th:src="@{/js/off-canvas.js}"></script>
+  <script src="#" th:src="@{/js/hoverable-collapse.js}"></script>
+  <script src="#" th:src="@{/js/misc.js}"></script>
+  <script src="#" th:src="@{/js/settings.js}"></script>
+  <script src="#" th:src="@{/js/todolist.js}"></script>
+  <!-- endinject -->
+  <!-- Custom js for this page-->
+  <!-- End custom js for this page-->
+</body>
+
+</html>

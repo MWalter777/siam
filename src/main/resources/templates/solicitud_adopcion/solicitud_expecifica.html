@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="base/base_admin:: head(~{::title})">
+	<title>Index</title>	
+</head>
+
+<body th:replace="base/base_admin:: content(~{::contenido})">
+<contenido>
+
+	<div class="row" th:if="${solicitud.estado==0}">
+	   <div class="col-lg-1"></div>
+	   <div class="col-lg-3">
+	     <div class="card">
+	       <div class="card-body">
+	       <form th:action="@{/adopcion/aceptar}" method="POST">
+	       		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+	       		<input type="number" th:value="${solicitud.id_adopcion}" id="id_adopcion" name="id_adopcion" hidden="true">
+	       		<input type="submit" class="btn btn-primary" value="aceptar solicitud">
+	       </form>
+	     </div>
+	   </div>
+	  </div>
+	   <div class="col-lg-3">
+	     <div class="card">
+	       <div class="card-body">
+	       <form th:action="@{/adopcion/denegar}" method="POST">
+	       		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+	       		<input type="number" th:value="${solicitud.id_adopcion}" id="id_adopcion" name="id_adopcion" hidden="true">
+	       		<input type="submit" class="btn btn-warning" value="rechazar solicitud">
+	       </form>
+	     </div>
+	   </div>
+	  </div>
+	</div>
+
+	<div class="row">
+	   <div class="col-lg-1"></div>
+	   <div class="col-lg-10">
+	     <div class="card">
+	       <div class="card-body">
+	         <h4 class="card-title">Solicitud <label class="badge badge-success" th:if="${solicitud.estado==1}">Activo</label> <label class="badge badge-info" th:if="${solicitud.estado==0}">Pendiente</label> <label class="badge badge-danger" th:if="${solicitud.estado==2}">Rechazada</label></h4>
+	         	<p><h2>Solicitante: <strong th:text="${solicitud.user.nombre}"></strong> <strong th:text="${solicitud.user.apellido}"></strong></h2></p>
+	         	<p><h4>Usuario: <strong th:text="${solicitud.user.username}"></strong> </h4></p>
+	         	<p><h4>Fecha de nacimiento: <strong th:text="${solicitud.user.fecha_nacimiento}"></strong> </h4></p>
+	         	<p><h4>Salario actual: <strong th:text="${solicitud.salario_actual}"></strong> </h4></p>
+	         	<p><h4>Numero de mascotas que tiene: <strong th:text="${solicitud.numero_mascotas}"></strong> </h4></p>
+	         	<p><h4>Porque quiere esta mascota?: <strong th:text="${solicitud.descripcion_solicitud}"></strong> </h4></p>
+	       </div>
+	     </div>
+	   </div>
+	   <div class="col-lg-1"></div>
+	   <div class="col-lg-1"></div>
+	   <div class="col-lg-10">
+			<div class="card">
+				<div class="card-body">
+					<a th:href="@{/animal/ver/}+${solicitud.animal.id_animal}"><h4 class="card-title" th:text="${solicitud.animal.nombre_animal}"></h4></a>
+					<p class="card-description" th:text="${solicitud.animal.descripcion_animal}"></p>
+					<div class="form-inline">
+						<div th:each="imagen:${solicitud.animal.imagenes}" class="col-lg-3"> 
+							<img alt="imagen" src="#" th:src="${imagen.direccion_imagen}" width="250" height="250">
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	 </div>
+
+
+</contenido>
+
+</body>
+</html>
