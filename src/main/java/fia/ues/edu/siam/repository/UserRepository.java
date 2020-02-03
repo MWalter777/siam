@@ -16,7 +16,7 @@ public interface UserRepository extends JpaRepository<Users, Serializable>{
 	
 	public abstract Users findByUsername(String username);
 
-	@Query(value = "select * from users where user.id = ? ", nativeQuery = true)
+	@Query(value = "select * from users where users.id = ? ", nativeQuery = true)
 	public Users findById(int ID);
 	
 	@Query(value = "select count(*) from users", nativeQuery = true)
