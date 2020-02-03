@@ -33,7 +33,7 @@ import fia.ues.edu.siam.entity.Animal;
 import fia.ues.edu.siam.entity.Comentario;
 import fia.ues.edu.siam.entity.Imagen;
 import fia.ues.edu.siam.entity.Publicacion;
-import fia.ues.edu.siam.entity.User;
+import fia.ues.edu.siam.entity.Users;
 
 @Controller
 @RequestMapping("/publicacion")
@@ -157,7 +157,7 @@ public class PublicacionController {
 			Authentication authentication = context.getAuthentication(); 
 			if (authentication != null) {
 				org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) authentication.getPrincipal();
-				User user_valid = userService.findUserByUsername(user.getUsername());
+				Users user_valid = userService.findUserByUsername(user.getUsername());
 				Comentario coment = comentarioServiceImpl.update(new Comentario(publicacionServiceImpl.findById(id_publicacion), user_valid, comentario, 1, new Date()));
 				if(coment!=null) {
 					redireccion = "redirect:/publicacion/ver_publicacion/"+id_publicacion+"?exito";

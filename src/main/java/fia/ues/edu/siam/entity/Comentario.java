@@ -39,7 +39,7 @@ public class Comentario {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="id_usuario",nullable=false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	private User usuario;
+	private Users usuario;
 	
 	@Column(name = "mensaje_comentario",length=510)
 	private String mensaje_comentario;
@@ -53,7 +53,7 @@ public class Comentario {
 	@Column(name="fecha")
 	private Date fecha;
 
-	public Comentario(Publicacion publicacion, User usuario, String mensaje_comentario, int estado, Date fecha) {
+	public Comentario(Publicacion publicacion, Users usuario, String mensaje_comentario, int estado, Date fecha) {
 		super();
 		this.publicacion = publicacion;
 		this.usuario = usuario;
@@ -94,7 +94,7 @@ public class Comentario {
 
 
 	@JsonIgnore
-	public User getUsuario() {
+	public Users getUsuario() {
 		return usuario;
 	}
 	
@@ -104,7 +104,7 @@ public class Comentario {
 	}
 
 
-	public void setUsuario(User usuario) {
+	public void setUsuario(Users usuario) {
 		this.usuario = usuario;
 	}
 

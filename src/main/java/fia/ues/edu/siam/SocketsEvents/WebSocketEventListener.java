@@ -13,7 +13,7 @@ import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
 import fia.ues.edu.siam.Services.impl.UserServiceImpl;
 import fia.ues.edu.siam.entity.ChatMessage;
-import fia.ues.edu.siam.entity.User;
+import fia.ues.edu.siam.entity.Users;
 
 @Component
 public class WebSocketEventListener {
@@ -44,7 +44,7 @@ public class WebSocketEventListener {
             chatMessage.setType(ChatMessage.MessageType.LEAVE);
             chatMessage.setSender(username);
             
-            User user_to = userService.findUserByUsername(username);
+            Users user_to = userService.findUserByUsername(username);
             System.out.println("Type: "+chatMessage.getType());
             System.out.println("Contenido: "+chatMessage.getContent());
             System.out.println("to: "+chatMessage.getSender()+" id: "+user_to.getId());

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import fia.ues.edu.siam.Services.impl.MensajeServiceImpl;
 import fia.ues.edu.siam.Services.impl.UserServiceImpl;
 import fia.ues.edu.siam.entity.Mensaje;
-import fia.ues.edu.siam.entity.User;
+import fia.ues.edu.siam.entity.Users;
 
 @CrossOrigin(origins= {"*"})
 @RestController
@@ -41,13 +41,13 @@ public class MenssageRest {
 	
 	
 	@GetMapping("/all_user")
-	public List<User> findAll_user(Model model){
+	public List<Users> findAll_user(Model model){
 		SecurityContext context = SecurityContextHolder.getContext(); 
 		if (context != null) {
 			Authentication authentication = context.getAuthentication(); 
 			if (authentication != null) {
 				org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) authentication.getPrincipal();
-				User user_valid = userService.findUserByUsername(user.getUsername());
+				Users user_valid = userService.findUserByUsername(user.getUsername());
 				return userService.findAllNotIdWithCant(user_valid.getId());
 			}
 
@@ -56,13 +56,13 @@ public class MenssageRest {
 	}
 	
 	@GetMapping("/get_user/{username}/valor")
-	public List<User> get_user(Model model, @PathVariable("username") String username){
+	public List<Users> get_user(Model model, @PathVariable("username") String username){
 		SecurityContext context = SecurityContextHolder.getContext(); 
 		if (context != null && username!=null && !username.isEmpty()) {
 			Authentication authentication = context.getAuthentication(); 
 			if (authentication != null) {
 				org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) authentication.getPrincipal();
-				User user_valid = userService.findUserByUsername(user.getUsername());
+				Users user_valid = userService.findUserByUsername(user.getUsername());
 				System.out.println("Se cumplio la condicion: "+username);
 				return userService.findAll(username, user_valid.getId());
 			}

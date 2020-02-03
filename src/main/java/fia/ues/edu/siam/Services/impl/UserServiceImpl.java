@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import fia.ues.edu.siam.Services.UserService;
-import fia.ues.edu.siam.entity.User;
+import fia.ues.edu.siam.entity.Users;
 import fia.ues.edu.siam.repository.UserRepository;
 
 @Service("userServiceImpl")
@@ -18,19 +18,19 @@ public class UserServiceImpl implements UserService{
 	
 	
 	@Override
-	public User updateUser(User user) {
+	public Users updateUser(Users user) {
 		return userRespository.save(user);
 	}
 
 
 	@Override
-	public User findUserById(int id) {
+	public Users findUserById(int id) {
 		return userRespository.findById(id);
 	}
 
 
 	@Override
-	public User findUserByUsername(String username) {
+	public Users findUserByUsername(String username) {
 		return userRespository.findByUsername(username);
 	}
 
@@ -47,36 +47,36 @@ public class UserServiceImpl implements UserService{
 	}
 	
 	@Override
-	public List<User> findAll(int id){
+	public List<Users> findAll(int id){
 		return userRespository.findAllNotI(id);
 	}
 
 
 	@Override
-	public List<User> findAllNotI(int id) {
+	public List<Users> findAllNotI(int id) {
 		return userRespository.findAllNotI(id);
 	}
 
 
 	@Override
-	public List<User> findAll(String username, int id) {
+	public List<Users> findAll(String username, int id) {
 		return userRespository.findAllUser(username, id);
 	}
 
 
 	@Override
-	public List<User> findAllNotIdWithCant(int id) {
+	public List<Users> findAllNotIdWithCant(int id) {
 		return userRespository.findAllNotIdWithCant(id, id);
 	}
 
 	@Override
-	public User findUserByFirstAdminRole() {
+	public Users findUserByFirstAdminRole() {
 		return userRespository.findUserByFirstAdminRole();
 	}
 
 
 	@Override
-	public User findUserCount(int id) {
+	public Users findUserCount(int id) {
 		return userRespository.findUserCount(id, id);
 	}	
 	

@@ -22,8 +22,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
-@Table(name = "user")
-public class User {
+@Table(name = "users")
+public class Users {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -63,10 +63,10 @@ public class User {
 	private String direccion;
 	
 	@JsonIgnore
-	@OneToMany(fetch=FetchType.EAGER, mappedBy="user")
+	@OneToMany(fetch=FetchType.EAGER, mappedBy="users")
 	private Set<UserRole> userRole = new HashSet<UserRole>();
 	
-	public User(String username, String password, boolean enabled, Set<UserRole> userRole) {
+	public Users(String username, String password, boolean enabled, Set<UserRole> userRole) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -74,14 +74,14 @@ public class User {
 		this.userRole = userRole;
 	}
 
-	public User(String username, String password, boolean enabled) {
+	public Users(String username, String password, boolean enabled) {
 		super();
 		this.username = username;
 		this.password = password;
 		this.enabled = enabled;
 	}
 	
-	public User(String username, String password, boolean enabled, String nombre, String apellido, Date fecha_nacimiento, String direccion, UserRole userRol) {
+	public Users(String username, String password, boolean enabled, String nombre, String apellido, Date fecha_nacimiento, String direccion, UserRole userRol) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -93,7 +93,7 @@ public class User {
 		this.userRole.add(userRol);
 	}
 
-	public User() {
+	public Users() {
 		super();
 	}
 	

@@ -18,7 +18,7 @@ import fia.ues.edu.siam.Services.impl.MensajeServiceImpl;
 import fia.ues.edu.siam.Services.impl.UserServiceImpl;
 import fia.ues.edu.siam.entity.ChatMessage;
 import fia.ues.edu.siam.entity.Mensaje;
-import fia.ues.edu.siam.entity.User;
+import fia.ues.edu.siam.entity.Users;
 
 @Controller
 public class ChatController {
@@ -34,8 +34,8 @@ public class ChatController {
     @MessageMapping("/chat.sendMessage/{id}")
     @SendTo("/topic/{id}")
     public ChatMessage sendMessage(@Payload ChatMessage chatMessage, @DestinationVariable("id") int id) {
-    	User user_to = userService.findUserById(id);
-    	User user_from = userService.findUserById(Integer.parseInt(chatMessage.getUser_from()));
+    	Users user_to = userService.findUserById(id);
+    	Users user_from = userService.findUserById(Integer.parseInt(chatMessage.getUser_from()));
     	String contenido = chatMessage.getContent();
     	mensajeServiceImpl.updateMensaje(new Mensaje(user_to, user_from, contenido, new Date()));
     	mensajeServiceImpl.visto(user_to.getId(),user_from.getId());

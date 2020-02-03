@@ -20,7 +20,7 @@ import fia.ues.edu.siam.Services.impl.UserRoleServiceImpl;
 import fia.ues.edu.siam.Services.impl.UserServiceImpl;
 import fia.ues.edu.siam.entity.Empresa;
 import fia.ues.edu.siam.entity.Servicios;
-import fia.ues.edu.siam.entity.User;
+import fia.ues.edu.siam.entity.Users;
 import fia.ues.edu.siam.entity.UserRole;
 
 
@@ -61,8 +61,8 @@ public class loginController {
 			Empresa empresa = new Empresa("Nombre de la empresa", "EMP001", new Date(), "Descripcion de la empresa", "none", "99999-999-99-9", "empresa@empresa.com", "2222-2222");
 			Empresa emp = empresaService.updateEmpresa(empresa);
 			BCryptPasswordEncoder pass = new BCryptPasswordEncoder();
-			User usuario = new fia.ues.edu.siam.entity.User("superuser", pass.encode("root"), true);
-			User usr= userService.updateUser(usuario);
+			Users usuario = new fia.ues.edu.siam.entity.Users("superuser", pass.encode("root"), true);
+			Users usr= userService.updateUser(usuario);
 			UserRole role = new UserRole(usr, "super_user");
 			UserRole rol = roleService.updateUserRole(role);
 			usr.insertRole(rol);

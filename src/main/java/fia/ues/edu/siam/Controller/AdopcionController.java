@@ -27,7 +27,7 @@ import fia.ues.edu.siam.Services.impl.UserServiceImpl;
 import fia.ues.edu.siam.entity.Animal;
 import fia.ues.edu.siam.entity.Mensaje;
 import fia.ues.edu.siam.entity.SolicitudAdopcion;
-import fia.ues.edu.siam.entity.User;
+import fia.ues.edu.siam.entity.Users;
 
 @Controller
 @RequestMapping("/adopcion")
@@ -82,7 +82,7 @@ public class AdopcionController {
 			if (authentication != null) {
 				try {
 					org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) authentication.getPrincipal();
-					User usr = userService.findUserByUsername(user.getUsername());
+					Users usr = userService.findUserByUsername(user.getUsername());
 					model.addAttribute("solicitudes", solicitudAdopcionServiceImpl.findAllSAdopcionByUser(usr.getId()));
 					retorno = "solicitud_adopcion/index_user";
 				} catch (Exception e) {
@@ -106,7 +106,7 @@ public class AdopcionController {
 			if (authentication != null) {
 				try {
 					org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) authentication.getPrincipal();
-					User usr = userService.findUserByUsername(user.getUsername());
+					Users usr = userService.findUserByUsername(user.getUsername());
 					SolicitudAdopcion solicitudAdopcion = solicitudAdopcionServiceImpl.findSAdopcionByUserLast(usr.getId());
 					if(solicitudAdopcion!=null) {
 						model.addAttribute("solicitud", solicitudAdopcion);
@@ -135,7 +135,7 @@ public class AdopcionController {
 	 */
 	@PostMapping("/save")
 	public String save(@Valid @ModelAttribute("solicitud") SolicitudAdopcion solicitud,@ModelAttribute("id_animal") int id_animal,@ModelAttribute("id_usuario") int id_usuario) {
-		User user = userServiceImpl.findUserById(id_usuario);
+		Users user = userServiceImpl.findUserById(id_usuario);
 		Animal animal = animalServiceImpl.findById(id_animal);
 		String codigo = "S"+user.getId();
 		solicitud.setCodigo_solicitud(codigo);
@@ -165,7 +165,7 @@ public class AdopcionController {
 			if (authentication != null) {
 				if(authentication.getAuthorities().contains(new SimpleGrantedAuthority("admin_role"))) {
 					org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) authentication.getPrincipal();
-					User user_valid = userService.findUserByUsername(user.getUsername()); //ya tengo mi propio usuario
+					Users user_valid = userService.findUserByUsername(user.getUsername()); //ya tengo mi propio usuario
 					String contenido = "Gracias por su paciencia, nos complace en notificarle que se ha aceptado su solicitud, por favor ponerse en contacto a trave de este chat para iniciar el proceso";
 			    	mensajeServiceImpl.updateMensaje(new Mensaje(sol.getUser(), user_valid, contenido, new Date()));
 				}
@@ -196,7 +196,7 @@ public class AdopcionController {
 			if (authentication != null) {
 				if(authentication.getAuthorities().contains(new SimpleGrantedAuthority("admin_role"))) {
 					org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) authentication.getPrincipal();
-					User user_valid = userService.findUserByUsername(user.getUsername()); //ya tengo mi propio usuario
+					Users user_valid = userService.findUserByUsername(user.getUsername()); //ya tengo mi propio usuario
 					String contenido = "Gracias por su paciencia, Lamentamos informarle que su solicitud fue rechazada, para mas informacion escribanos al inbox";
 			    	mensajeServiceImpl.updateMensaje(new Mensaje(sol.getUser(), user_valid, contenido, new Date()));
 				}

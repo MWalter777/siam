@@ -48,7 +48,7 @@ public class SolicitudAdopcion {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id")
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	private User user;
+	private Users user;
 	
 	
 
@@ -57,7 +57,7 @@ public class SolicitudAdopcion {
 	}
 
 	public SolicitudAdopcion(Integer id_adopcion, String codigo_solicitud, String descripcion_solicitud,
-			int numero_mascotas, double salario_actual, int estado, Animal animal, User user) {
+			int numero_mascotas, double salario_actual, int estado, Animal animal, Users user) {
 		super();
 		this.id_adopcion = id_adopcion;
 		this.codigo_solicitud = codigo_solicitud;
@@ -70,11 +70,11 @@ public class SolicitudAdopcion {
 	}
 	
 
-	public User getUser() {
+	public Users getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(Users user) {
 		this.user = user;
 	}
 

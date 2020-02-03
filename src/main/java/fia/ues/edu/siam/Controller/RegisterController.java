@@ -37,7 +37,7 @@ import fia.ues.edu.siam.Services.impl.UserRoleServiceImpl;
 import fia.ues.edu.siam.Services.impl.UserService;
 import fia.ues.edu.siam.Services.impl.UserServiceImpl;
 import fia.ues.edu.siam.entity.Empresa;
-import fia.ues.edu.siam.entity.User;
+import fia.ues.edu.siam.entity.Users;
 import fia.ues.edu.siam.entity.UserRole;
 
 @Controller
@@ -67,7 +67,7 @@ public class RegisterController {
 			return mav;
 		}
 		mav.addObject("error", error);
-		mav.addObject("usuario", new User());
+		mav.addObject("usuario", new Users());
 		Date fecha = new Date();
 		int anio = fecha.getYear() - 17 ;
 		fecha.setYear(anio);
@@ -80,7 +80,7 @@ public class RegisterController {
 	}
 	
 	@PostMapping("/save")
-	public String getRegisterSave(@Valid @ModelAttribute("usuario") User usuario,@ModelAttribute("password") String password,@ModelAttribute("fecha") String fecha ) {
+	public String getRegisterSave(@Valid @ModelAttribute("usuario") Users usuario,@ModelAttribute("password") String password,@ModelAttribute("fecha") String fecha ) {
 		SimpleDateFormat formateador = new SimpleDateFormat("yyyy-MM-dd");
 		Date fecha_nacimiento = null;
 		try {
@@ -94,7 +94,7 @@ public class RegisterController {
 		BCryptPasswordEncoder pass = new BCryptPasswordEncoder();
 		usuario.setPassword(pass.encode(password));
 		try {
-			User user = userService.updateUser(usuario);
+			Users user = userService.updateUser(usuario);
 			UserRole user_role = new UserRole(usuario,"user_role");
 			UserRole role = roleService.updateUserRole(user_role);
 			user.insertRole(role);
@@ -120,7 +120,7 @@ public class RegisterController {
 			if (authentication != null) {
 				try {
 					org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) authentication.getPrincipal();
-					User usr = userService.findUserByUsername(user.getUsername());
+					Users usr = userService.findUserByUsername(user.getUsername());
 					return "redirect:/register/editar/"+usr.getId();
 				} catch (Exception e) {
 					return "redirect:/?error=username";
@@ -141,7 +141,7 @@ public class RegisterController {
 				if(authentication.getAuthorities().contains(new SimpleGrantedAuthority("super_user"))) {
 					ModelAndView mav = new ModelAndView("/gestion_usuario/register_admin");
 					String p = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
-					mav.addObject("usuario", new User());
+					mav.addObject("usuario", new Users());
 					Date fecha = new Date();
 					int anio = fecha.getYear() - 17 ;
 					fecha.setYear(anio);
@@ -159,7 +159,7 @@ public class RegisterController {
 	}
 
 	@PostMapping("/saveAdmin")
-	public String getRegisterSaveAdmin(@Valid @ModelAttribute("usuario") User usuario,@ModelAttribute("password") String password,@ModelAttribute("fecha") String fecha ) {
+	public String getRegisterSaveAdmin(@Valid @ModelAttribute("usuario") Users usuario,@ModelAttribute("password") String password,@ModelAttribute("fecha") String fecha ) {
 		SimpleDateFormat formateador = new SimpleDateFormat("yyyy-MM-dd");
 		Date fecha_nacimiento = null;
 		try {
@@ -173,7 +173,7 @@ public class RegisterController {
 		BCryptPasswordEncoder pass = new BCryptPasswordEncoder();
 		usuario.setPassword(pass.encode(password));
 		try {
-			User user = userService.updateUser(usuario);
+			Users user = userService.updateUser(usuario);
 			UserRole user_role = new UserRole(usuario,"admin_role");
 			UserRole role = roleService.updateUserRole(user_role);
 			user.insertRole(role);
@@ -202,7 +202,7 @@ public class RegisterController {
 	
 	@GetMapping("/editar/{id}")
 	public String getAdminEdit(Model model,@PathVariable("id") int id, @RequestParam(name="error", required=false) String error) {
-		User user = userService.findUserById(id);
+		Users user = userService.findUserById(id);
 		model.addAttribute("user",user);
 		model.addAttribute("error",error);
 		SecurityContext context = SecurityContextHolder.getContext(); 
@@ -212,7 +212,7 @@ public class RegisterController {
 				try {
 					if(authentication.getAuthorities().contains(new SimpleGrantedAuthority("user_role"))) {
 						org.springframework.security.core.userdetails.User user_validate = (org.springframework.security.core.userdetails.User) authentication.getPrincipal();
-						User usr = userService.findUserByUsername(user_validate.getUsername());
+						Users usr = userService.findUserByUsername(user_validate.getUsername());
 						if(id==usr.getId()) return "gestion_usuario/editar_user";
 						else return "redirect:/";
 					}
@@ -233,7 +233,7 @@ public class RegisterController {
 	
 
 	@PostMapping("/editAdmin")
-	public String getRegisterEditAdmin(@Valid @ModelAttribute("user") User usuario,@ModelAttribute("password") String password,@ModelAttribute("fecha") String fecha ) {
+	public String getRegisterEditAdmin(@Valid @ModelAttribute("user") Users usuario,@ModelAttribute("password") String password,@ModelAttribute("fecha") String fecha ) {
 		SimpleDateFormat formateador = new SimpleDateFormat("yyyy-MM-dd");
 		Date fecha_nacimiento = null;
 		try {
@@ -244,7 +244,7 @@ public class RegisterController {
 		}			
 		usuario.setFecha_nacimiento(fecha_nacimiento);
 		try {
-			User usr = userService.findUserById(usuario.getId());
+			Users usr = userService.findUserById(usuario.getId());
 			usuario.setFecha_nacimiento(fecha_nacimiento);
 			usuario.setEnabled(true);
 			if (password.isEmpty()) {

@@ -32,7 +32,7 @@ import fia.ues.edu.siam.Services.impl.ImagenServiceImpl;
 import fia.ues.edu.siam.entity.Animal;
 import fia.ues.edu.siam.entity.Categoria;
 import fia.ues.edu.siam.entity.Imagen;
-import fia.ues.edu.siam.entity.User;
+import fia.ues.edu.siam.entity.Users;
 
 @Controller
 @RequestMapping("/animal")

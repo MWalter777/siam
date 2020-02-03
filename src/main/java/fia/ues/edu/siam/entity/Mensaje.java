@@ -63,12 +63,12 @@ public class Mensaje {
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "id_emisor", nullable = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	private User user_emisor;
+	private Users user_emisor;
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "id_receptor", nullable = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	private User user_receptor;
+	private Users user_receptor;
 
 	@Column(name="contenido")
 	private String contenido;
@@ -85,7 +85,7 @@ public class Mensaje {
 		super();
 	}
 
-	public Mensaje(User user_emisor, User user_receptor, String contenido, Date fecha) {
+	public Mensaje(Users user_emisor, Users user_receptor, String contenido, Date fecha) {
 		super();
 		this.user_emisor = user_emisor;
 		this.user_receptor = user_receptor;
@@ -114,7 +114,7 @@ public class Mensaje {
 	}
 
 	@JsonIgnore
-	public User getUser_emisor() {
+	public Users getUser_emisor() {
 		return user_emisor;
 	}
 
@@ -123,16 +123,16 @@ public class Mensaje {
 		return user_receptor.getUsername();
 	}
 
-	public void setUser_emisor(User user_emisor) {
+	public void setUser_emisor(Users user_emisor) {
 		this.user_emisor = user_emisor;
 	}
 
 	@JsonIgnore
-	public User getUser_receptor() {
+	public Users getUser_receptor() {
 		return user_receptor;
 	}
 	
-	public void setUser_receptor(User user_receptor) {
+	public void setUser_receptor(Users user_receptor) {
 		this.user_receptor = user_receptor;
 	}
 

@@ -32,7 +32,7 @@ import fia.ues.edu.siam.Services.impl.UserServiceImpl;
 import fia.ues.edu.siam.entity.Animal;
 import fia.ues.edu.siam.entity.Empresa;
 import fia.ues.edu.siam.entity.Mensaje;
-import fia.ues.edu.siam.entity.User;
+import fia.ues.edu.siam.entity.Users;
 import fia.ues.edu.siam.entity.UserRole;
 
 
@@ -125,13 +125,13 @@ public class IndexController {
 					}
 					org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) authentication.getPrincipal();
 					model.addAttribute("username", user.getUsername());
-					User user_valid = userService.findUserByUsername(user.getUsername());
+					Users user_valid = userService.findUserByUsername(user.getUsername());
 					model.addAttribute("id_user",user_valid.getId());
 
-					User user_to = userService.findUserByFirstAdminRole();
+					Users user_to = userService.findUserByFirstAdminRole();
 					model.addAttribute("enviar", user_to.getId());
 					model.addAttribute("enviar_user", user_to.getUsername());
-					User contador = userService.findUserCount(user_valid.getId());
+					Users contador = userService.findUserCount(user_valid.getId());
 					model.addAttribute("contador", contador.getCantidad());
 					
 					
@@ -189,14 +189,14 @@ public class IndexController {
 					
 					org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) authentication.getPrincipal();
 					model.addAttribute("username", user.getUsername());
-					User user_valid = userService.findUserByUsername(user.getUsername());
+					Users user_valid = userService.findUserByUsername(user.getUsername());
 					model.addAttribute("id_user",user_valid.getId());
-					User user_to = userService.findUserByFirstAdminRole();
+					Users user_to = userService.findUserByFirstAdminRole();
 					model.addAttribute("enviar", user_to.getId());
 					model.addAttribute("enviar_user", user_to.getUsername());
 
 					System.out.println("id : "+user_valid.getId());
-					User contador = userService.findUserCount(user_valid.getId());
+					Users contador = userService.findUserCount(user_valid.getId());
 					model.addAttribute("contador", contador.getCantidad());
 					System.out.println("Cantidad: "+contador.getCantidad());
 					
@@ -262,14 +262,14 @@ public class IndexController {
 					
 					org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) authentication.getPrincipal();
 					model.addAttribute("username", user.getUsername());
-					User user_valid = userService.findUserByUsername(user.getUsername());
+					Users user_valid = userService.findUserByUsername(user.getUsername());
 					model.addAttribute("id_user",user_valid.getId());
 
-					User user_to = userService.findUserByFirstAdminRole();
+					Users user_to = userService.findUserByFirstAdminRole();
 					model.addAttribute("enviar", user_to.getId());
 					model.addAttribute("enviar_user", user_to.getUsername());
 					
-					User contador = userService.findUserCount(user_valid.getId());
+					Users contador = userService.findUserCount(user_valid.getId());
 					model.addAttribute("contador", contador.getCantidad());
 					
 					model.addAttribute("publicaciones",publicacionServiceImpl.findAllValidate());
@@ -291,7 +291,7 @@ public class IndexController {
 			if (authentication != null) {
 				org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) authentication.getPrincipal();
 				model.addAttribute("username", user.getUsername());
-				User user_valid = userService.findUserByUsername(user.getUsername());
+				Users user_valid = userService.findUserByUsername(user.getUsername());
 				model.addAttribute("id_user",user_valid.getId());
 				model.addAttribute("enviar", id);
 				model.addAttribute("username_to", userService.findUserById(id).getUsername());
@@ -309,7 +309,7 @@ public class IndexController {
 			if (authentication != null) {
 				org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) authentication.getPrincipal();
 				model.addAttribute("username", user.getUsername());
-				User user_valid = userService.findUserByUsername(user.getUsername());
+				Users user_valid = userService.findUserByUsername(user.getUsername());
 				model.addAttribute("id_user",user_valid.getId());
 				model.addAttribute("usuarios", userService.findAllNotI(user_valid.getId()));
 				//model.addAttribute("enviar", 7);
@@ -331,7 +331,7 @@ public class IndexController {
 			if (authentication != null) {
 					org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) authentication.getPrincipal();
 					 model.addAttribute("username", user.getUsername());
-					 User user_valid = userService.findUserByUsername(user.getUsername());
+					 Users user_valid = userService.findUserByUsername(user.getUsername());
 					 model.addAttribute("id_user",user_valid.getId());
 					 model.addAttribute("usuarios", userService.findAll(user_valid.getId()));
 					 model.addAttribute("enviar", 10);

@@ -27,12 +27,12 @@ public class UserService implements UserDetailsService{
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		fia.ues.edu.siam.entity.User user = userRespository.findByUsername(username);
+		fia.ues.edu.siam.entity.Users user = userRespository.findByUsername(username);
 		List<GrantedAuthority> authorities = buildAuthorities(user.getUserRole());
 		return buildUser(user, authorities);
 	}
 	
-	private User buildUser(fia.ues.edu.siam.entity.User user, List<GrantedAuthority> authorities) {
+	private User buildUser(fia.ues.edu.siam.entity.Users user, List<GrantedAuthority> authorities) {
 		return new User(user.getUsername(), user.getPassword(), user.isEnabled(), true, true, true, authorities);
 	}
 	

@@ -29,7 +29,7 @@ import fia.ues.edu.siam.Services.impl.FileServiceImpl;
 import fia.ues.edu.siam.Services.impl.ServicioServiceImpl;
 import fia.ues.edu.siam.entity.Empresa;
 import fia.ues.edu.siam.entity.Servicios;
-import fia.ues.edu.siam.entity.User;
+import fia.ues.edu.siam.entity.Users;
 
 @Controller
 @RequestMapping("/empresa")
