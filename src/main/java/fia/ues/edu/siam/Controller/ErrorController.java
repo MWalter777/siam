@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class ErrorController implements org.springframework.boot.web.servlet.error.ErrorController{
-
+public class ErrorController{// implements org.springframework.boot.web.servlet.error.ErrorController{
+/*
 	@RequestMapping("/error")
 	public String handleError(HttpServletRequest request, Model model) {
 		String retornar = "errores/unknow";
@@ -27,11 +27,11 @@ public class ErrorController implements org.springframework.boot.web.servlet.err
 			}
 		}
 		return retornar;
-	}
- 
+	}*/
+/* 
     @Override
     public String getErrorPath() {
         return "/error";
-    }
+    }*/
     
 }
