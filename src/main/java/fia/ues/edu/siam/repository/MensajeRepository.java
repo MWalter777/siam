@@ -20,7 +20,7 @@ public interface MensajeRepository extends JpaRepository<Mensaje, Serializable>{
 	
 	@Modifying(clearAutomatically = true)
 	@Transactional
-	@Query(value = "update mensaje set estado=1 where (id_emisor= ? and id_receptor = ?) and (estado=0 or isNull(estado));", nativeQuery = true)
+	@Query(value = "update mensaje set estado=true where (id_emisor= ? and id_receptor = ?) and (estado=false);", nativeQuery = true)
 	public void visto(int user_from,int user_to);	
 	
 	

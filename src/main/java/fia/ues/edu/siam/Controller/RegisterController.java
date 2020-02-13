@@ -203,7 +203,7 @@ public class RegisterController {
 	@GetMapping("/editar/{id}")
 	public String getAdminEdit(Model model,@PathVariable("id") int id, @RequestParam(name="error", required=false) String error) {
 		Users user = userService.findUserById(id);
-		model.addAttribute("user",user);
+		model.addAttribute("users",user);
 		model.addAttribute("error",error);
 		SecurityContext context = SecurityContextHolder.getContext(); 
 		if (context != null) {

@@ -16,21 +16,21 @@
 	             <div th:if="${exito !=null}" class="alert alert-success" role="alert">
                 	Usuario creado con exito!
                  </div>
-	         <form class="cmxform" id="signupForm" action="#" th:action="@{/register/editAdmin}" method="POST" th:objects="*{user}">
+	         <form class="cmxform" id="signupForm" action="#" th:action="@{/register/editAdmin}" method="POST" th:objects="*{users}">
 	         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-	         <input id="id" class="form-control" name="id" type="number" required="true" th:fields="*{id}" th:value="${user.id}" hidden="true">
+	         <input id="id" class="form-control" name="id" type="number" required="true" th:fields="*{id}" th:value="${users.id}" hidden="true">
 	           <fieldset>
 	             <div class="form-group">
 	               <label for="firstname">Nombre</label>
-	               <input id="nombre" class="form-control" name="nombre" type="text" required="true" th:fields="*{nombre}" th:value="${user.nombre}">
+	               <input id="nombre" class="form-control" name="nombre" type="text" required="true" th:fields="*{nombre}" th:value="${users.nombre}">
 	             </div>
 	             <div class="form-group">
 	               <label for="lastname">apellido</label>
-	               <input id="apellido" class="form-control" name="apellido" type="text" required="true" th:fields="*{apellido}" th:value="${user.apellido}">
+	               <input id="apellido" class="form-control" name="apellido" type="text" required="true" th:fields="*{apellido}" th:value="${users.apellido}">
 	             </div>
 	             <div class="form-group">
 	               <label for="username">Username</label>
-	               <input id="username" class="form-control" name="username" type="text" th:fields="*{username}" required="true" th:value="${user.username}">
+	               <input id="username" class="form-control" name="username" type="text" th:fields="*{username}" required="true" th:value="${users.username}">
 	             </div>
 	             <div th:if="${error !=null}" class="alert alert-danger" role="alert">
                 	Usuario ya existe! intente de nuevo
@@ -41,11 +41,11 @@
 	             </div>
 	             <div class="form-group">
 	               <label for="direccion">Direccion</label>
-	               <input id="direccion" class="form-control" name="direccion" type="text" required="true" th:fields="*{direccion}" th:value="${user.direccion}">
+	               <input id="direccion" class="form-control" name="direccion" type="text" required="true" th:fields="*{direccion}" th:value="${users.direccion}">
 	             </div>
 	             <div class="form-group">
 	               <label for="direccion">Fecha de nacimiento</label>
-	               <input id="fecha" class="form-control" name="fecha" type="date" th:fields="*{fecha_nacimiento}" th:max="*{fecha_actual}" required="true" th:value="${user.fecha_nacimiento}">
+	               <input id="fecha" class="form-control" name="fecha" type="date" th:fields="*{fecha_nacimiento}" th:max="*{fecha_actual}" required="true" th:value="${users.fecha_nacimiento}">
 	             </div>
 	             <input class="btn btn-primary" type="submit" value="Actualizar">
 	           </fieldset>

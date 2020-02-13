@@ -173,7 +173,7 @@ public class IndexController {
 					model.addAttribute("num_categoria",num_categoria);
 					model.addAttribute("num_animal_disp",animal_disponible);
 					model.addAttribute("num_animal",animal_total);
-					
+
 					int solicitudes = solicitudAdopcionServiceImpl.findAllSAdopcionAcceptd(0).size();
 					int aceptadas = solicitudAdopcionServiceImpl.findAllSAdopcionAcceptd(1).size();
 					int rechazadas = solicitudAdopcionServiceImpl.findAllSAdopcionAcceptd(2).size();
@@ -189,14 +189,20 @@ public class IndexController {
 					
 					org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) authentication.getPrincipal();
 					model.addAttribute("username", user.getUsername());
+					
+
 					Users user_valid = userService.findUserByUsername(user.getUsername());
 					model.addAttribute("id_user",user_valid.getId());
 					Users user_to = userService.findUserByFirstAdminRole();
+
 					model.addAttribute("enviar", user_to.getId());
 					model.addAttribute("enviar_user", user_to.getUsername());
 
 					System.out.println("id : "+user_valid.getId());
+
 					Users contador = userService.findUserCount(user_valid.getId());
+					
+
 					model.addAttribute("contador", contador.getCantidad());
 					System.out.println("Cantidad: "+contador.getCantidad());
 					

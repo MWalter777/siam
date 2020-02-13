@@ -24,7 +24,7 @@ public interface AnimalRepository extends JpaRepository<Animal, Serializable>{
 	@Query(value = "select id_animal, edad_aproximada, estado_animal, fecha_rescate, nombre_animal, raza_animal, animal.id_categoria, descripcion_animal from animal join categoria on categoria.id_categoria = animal.id_categoria and categoria.estado = 1 and animal.estado_animal = 1 order by animal.id_animal limit ?;", nativeQuery = true)
 	public List<Animal> findByLastestValid(int limite);
 
-	@Query(value = "select id_animal, edad_aproximada, estado_animal, fecha_rescate, nombre_animal, raza_animal, animal.id_categoria, descripcion_animal from animal join categoria on categoria.id_categoria = animal.id_categoria and categoria.estado = 1 and animal.estado_animal = 1 order by animal.id_animal desc limit ?, ?;", nativeQuery = true)
+	@Query(value = "select id_animal, edad_aproximada, estado_animal, fecha_rescate, nombre_animal, raza_animal, animal.id_categoria, descripcion_animal from animal join categoria on categoria.id_categoria = animal.id_categoria and categoria.estado = 1 and animal.estado_animal = 1 order by animal.id_animal desc offset ? limit ?;", nativeQuery = true)
 	public List<Animal> findByLastestValid(int limite, int limite2);
 
 	

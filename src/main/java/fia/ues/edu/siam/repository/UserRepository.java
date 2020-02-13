@@ -16,7 +16,7 @@ public interface UserRepository extends JpaRepository<Users, Serializable>{
 	
 	public abstract Users findByUsername(String username);
 
-	@Query(value = "select * from users where users.id = ? ", nativeQuery = true)
+	@Query(value = "select * from users where id = ? ", nativeQuery = true)
 	public Users findById(int ID);
 	
 	@Query(value = "select count(*) from users", nativeQuery = true)
@@ -25,10 +25,10 @@ public interface UserRepository extends JpaRepository<Users, Serializable>{
 	@Query(value = "select count(*) from users join user_role on users.id = user_role.id and user_role.role=\'admin_role\';", nativeQuery = true)
 	public int count_admin();
 
-	@Query(value = "select * from users where user.id != ? and username != \'superuser\' ", nativeQuery = true)
+	@Query(value = "select * from users where users.id != ? and username != \'superuser\' ", nativeQuery = true)
 	public abstract List<Users> findAllNotI(int id);
 	
-	@Query(value = "select id, apellido,direccion,enabled, fecha_nacimiento,nombre, password, username, (select count(estado) from mensaje where mensaje.id_emisor=? and mensaje.id_receptor = users.id and (estado=0 or isNull(estado))) as cantidad from user where  users.id != ? and username != \'superuser\';", nativeQuery = true)
+	@Query(value = "select id, apellido,direccion,enabled, fecha_nacimiento,nombre, password, username, (select count(estado) from mensaje where mensaje.id_emisor=? and mensaje.id_receptor = users.id and (estado=false)) as cantidad from users where  users.id != ? and username != \'superuser\';", nativeQuery = true)
 	public abstract List<Users> findAllNotIdWithCant(int id, int id2);
 
 
@@ -38,7 +38,7 @@ public interface UserRepository extends JpaRepository<Users, Serializable>{
 	@Query(value = "select u.id,u.apellido, u.cantidad, u.direccion, u.enabled, u.fecha_nacimiento, u.nombre, u.password, u.username from users as u join user_role as role on u.id = role.id and role.role=\'admin_role\' limit 1;", nativeQuery = true)
 	public abstract Users findUserByFirstAdminRole();
 	
-	@Query(value = "select u.id, u.apellido,u.direccion,u.enabled, u.fecha_nacimiento,u.nombre, u.password, u.username, (select count(estado) from mensaje as m where m.id_emisor = ? and (estado=0 or isNull(estado))) as cantidad from users as u where  u.id != ? limit 1;", nativeQuery = true)
+	@Query(value = "select u.id, u.apellido,u.direccion,u.enabled, u.fecha_nacimiento,u.nombre, u.password, u.username, (select count(estado) from mensaje as m where m.id_emisor = ? and (estado=false)) as cantidad from users as u where  u.id != ? limit 1;", nativeQuery = true)
 	public abstract Users findUserCount(int id, int id2);
 	
 }
