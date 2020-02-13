@@ -84,6 +84,7 @@ public class AdopcionController {
 					org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) authentication.getPrincipal();
 					Users usr = userService.findUserByUsername(user.getUsername());
 					model.addAttribute("solicitudes", solicitudAdopcionServiceImpl.findAllSAdopcionByUser(usr.getId()));
+					
 					retorno = "solicitud_adopcion/index_user";
 				} catch (Exception e) {
 					return "redirect:/";
